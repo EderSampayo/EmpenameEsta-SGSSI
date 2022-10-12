@@ -67,23 +67,25 @@
                     <div class="footer__input">
                         <input type="nombreYape" placeholder="Nombre y Apellidos:" class="footer__input">
                     </div>
+                    <h6 style="color:#808080">-> (solo texto) Ejemplo: Pepe García</h6>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="dni" placeholder="DNI:" class="footer__input">
+                        <input type="dni" placeholder="DNI: (formato: 11111111-Z)" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="telefono" placeholder="Teléfono:" class="footer__input">
+                        <input type="telefono" placeholder="Teléfono: (9 dígitos)" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
                         <input type="fechaNacimiento" placeholder="Fecha de Nacimiento:" class="footer__input">
+                        <h6 style="color:#808080">-> formato: aaaa-mm-dd (1999-08-26)</h6>
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="email" placeholder="Email:" class="footer__input">
+                        <input type="email" placeholder="Email: solo válidos" class="footer__input">
                     </div>
-                    <h6>-</h6>
+                    <h6 style="color:#808080">-> (ejemplo@servidor.extensión)</h6>
                     <a href="#" class="cta">Registrarse</a>
                 </div>
 

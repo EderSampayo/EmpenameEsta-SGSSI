@@ -57,7 +57,7 @@
                 <div class="knowledge__text">
                     <h2 class="subtitle">Inicio de sesión</h2>
                     <div class="footer__input">
-                        <input type="email" placeholder="Email:" class="footer__input">
+                        <input type="username" placeholder="Nombre de usuario:" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
