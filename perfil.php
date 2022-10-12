@@ -3,7 +3,7 @@
     if (!isset($_SESSION['user_id'])) {
         header("location: ./iniciosesion.php");
     } else {
-        header("location: ./index.php");
+        header("location: ./perfil.php");
     }
 ?>
 
@@ -33,13 +33,13 @@
 
             <ul class="nav__link nav__link--menu">
                 <li class="nav__items">
-                    <a href="index.php" class="nav__links"></a>
+                    <a href="index.php" class="nav__links">Inicio</a>
                 </li>
                 <li class="nav__items">
-                    <a href="productos.php" class="nav__links"></a>
+                    <a href="productos.php" class="nav__links">Productos</a>
                 </li>
                 <li class="nav__items">
-                    <a href="iniciosesion.php" class="nav__links"></a>
+                    <a href="iniciosesion.php" class="nav__links">Iniciar sesión</a>
                 </li>
 
                 <img src="images/cerrar.svg" class="nav__close" alt=""> 
@@ -51,10 +51,61 @@
         </nav>
 
         <section class="hero__container container">
-            <h1 class="hero__title"></h1>
+            <h1 class="hero__title">Perfil</h1>
             <p class="hero__paragraph"></p>
         </section>
     </header>
+
+    <main>
+        <section class="knowledge">
+            <div class="knowledge__container container">
+                <div class="knowledge__text">
+                    <h2 class="subtitle">Cambio de datos</h2>
+                    <div class="footer__input">
+                        <input type="nombreYape" placeholder="Nombre y Apellidos:" class="footer__input">
+                    </div>
+                    <h6>-</h6>
+                    <a href="#" class="cta">Cambiar</a>
+                    <h6>-</h6>
+                    &nbsp;
+
+                    <div class="footer__input">
+                        <input type="dni" placeholder="DNI:" class="footer__input">
+                    </div>
+                    <h6>-</h6>
+                    <a href="#" class="cta">Cambiar</a>
+                    <h6>-</h6>
+                    &nbsp;
+
+                    <div class="footer__input">
+                        <input type="telefono" placeholder="Teléfono:" class="footer__input">
+                    </div>
+                    <h6>-</h6>
+                    <a href="#" class="cta">Cambiar</a>
+                    <h6>-</h6>
+                    &nbsp;
+
+                    <div class="footer__input">
+                        <input type="fechaNacimiento" placeholder="Fecha de Nacimiento:" class="footer__input">
+                    </div>
+                    <h6>-</h6>
+                    <a href="#" class="cta">Cambiar</a>
+                    <h6>-</h6>
+                    &nbsp;
+
+                    <div class="footer__input">
+                        <input type="email" placeholder="Email:" class="footer__input">
+                    </div>
+                    <h6>-</h6>
+                    <a href="#" class="cta">Cambiar</a>
+                </div>
+
+                <figure class="knowledge__picture">
+                    <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
+                </figure>
+            </div>
+        </section>
+    </main>
 
     <footer class="footer">
         <section class="footer__container container">
@@ -63,7 +114,7 @@
 
                 <ul class="nav__link nav__link--footer">
                     <li class="nav__items">
-                        <a href="#" class="nav__links">Inicio</a>
+                        <a href="index.php" class="nav__links">Inicio</a>
                     </li>
                     <li class="nav__items">
                         <a href="productos.php" class="nav__links">Productos</a>
