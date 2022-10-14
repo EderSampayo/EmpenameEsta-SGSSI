@@ -57,36 +57,36 @@
                 <div class="knowledge__text">
                     <h2 class="subtitle">Registro</h2>
                     <div class="footer__input">
-                        <input type="email" placeholder="Username:" class="footer__input">
+                        <input type="username" name="Username" placeholder="Username:" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="contra" placeholder="Contraseña:" class="footer__input">
+                        <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="nombreYape" placeholder="Nombre y Apellidos:" class="footer__input">
+                        <input type="nombreYape" name="NomApe" placeholder="Nombre y Apellidos:" class="footer__input">
                     </div>
                     <h6 style="color:#808080">-> (solo texto) Ejemplo: Pepe García</h6>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="dni" placeholder="DNI: (formato: 11111111-Z)" class="footer__input">
+                        <input type="dni" name="DNI" placeholder="DNI: (formato: 11111111-Z)" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="telefono" placeholder="Teléfono: (9 dígitos)" class="footer__input">
+                        <input type="telefono" name="Telefono" placeholder="Teléfono: (9 dígitos)" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="fechaNacimiento" placeholder="Fecha de Nacimiento:" class="footer__input">
+                        <input type="fechaNacimiento" name="FechaNacimiento" placeholder="Fecha de Nacimiento:" class="footer__input">
                         <h6 style="color:#808080">-> formato: aaaa-mm-dd (1999-08-26)</h6>
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="email" placeholder="Email: solo válidos" class="footer__input">
+                        <input type="email" name="Email" placeholder="Email: solo válidos" class="footer__input">
                     </div>
                     <h6 style="color:#808080">-> (ejemplo@servidor.extensión)</h6>
-                    <input type="submit" name="sub" value="Registrarse">
+                    <input type="submit" name="Register" value="Registrarse">
                 </div>
 
                 <figure class="knowledge__picture">
@@ -94,6 +94,53 @@
                 </figure>
             </div>
         </form>
+
+        <?php
+        $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+        if(isset($_POST['Register'])) /*Si se ha pulsado el botón con nombre Register */
+        {
+            if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1*/
+            strlen($_POST['Password']) >= 1 &&
+            strlen($_POST['NomApe']) >= 1 &&
+            strlen((string)$_POST['DNI']) >= 1 &&    /*Cast a string*/
+            strlen((string)$_POST['Telefono']) >= 1 &&
+            strlen($_POST['FechaNacimiento']) >= 1 &&
+            strlen($_POST['Email']) >= 1)
+            {
+                $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
+                $password = trim($_POST['Password']);
+                $nomApe = trim($_POST['NomApe']);
+                $dni = trim($_POST['DNI']);
+                $telefono = trim($_POST['Telefono']);
+                $fechaNacimiento = date("d/m/y");
+                $email = trim($_POST['Email']);
+
+                $consulta = "INSERT INTO Usuario VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
+                $resultado = mysqli_query($conexion, $consulta);
+
+                if($resultado){
+                    ?>
+                    <h3 class ="registradoCorrectamente">¡Te has registrado correctamente!</h3>
+                    <?php
+                }
+                else{
+                    ?>
+                    <h3 class ="registroError">¡Ha ocurrido un error!</h3>
+                    <?php
+                }
+            }
+            else{
+                ?>
+                <h3 class ="registroError">¡Completa los campos!</h3>
+                <?php
+            }
+        }
+        /*if($conexion)
+        {
+            echo "todo correcto";
+        }*/
+        ?>
+
     </main>
 
     <footer class="footer">

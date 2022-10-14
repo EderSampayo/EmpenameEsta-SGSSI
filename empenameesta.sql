@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2022 a las 18:09:24
+-- Tiempo de generación: 14-10-2022 a las 21:02:37
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -43,8 +43,9 @@ CREATE TABLE `producto` (
 --
 
 CREATE TABLE `usuario` (
-  `Nombre` varchar(30) NOT NULL,
-  `Apellido` varchar(40) NOT NULL,
+  `Username` varchar(30) NOT NULL,
+  `Password` varchar(30) NOT NULL,
+  `NombreYApellidos` varchar(30) NOT NULL,
   `DNI` varchar(9) NOT NULL,
   `Telefono` int(9) NOT NULL,
   `FechaNac` date NOT NULL,
@@ -65,7 +66,7 @@ ALTER TABLE `producto`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`DNI`);
+  ADD PRIMARY KEY (`Username`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
