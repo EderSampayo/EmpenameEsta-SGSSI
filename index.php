@@ -1,10 +1,10 @@
 <?php
     session_start();
-    if (!isset($_SESSION['user_id'])) {
+    /*if (!isset($_SESSION['user_id'])) {
         header("location: ./iniciosesion.php");
     } else {
         header("location: ./index.php");
-    }
+    }*/
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +55,7 @@
             <p class="hero__paragraph"></p>
         </section>
     </header>
+
 
     <footer class="footer">
         <section class="footer__container container">

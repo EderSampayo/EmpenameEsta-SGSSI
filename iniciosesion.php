@@ -52,7 +52,7 @@
     </header>
 
     <main>
-        <section class="knowledge">
+        <form action="./iniciosesion.php" method="post">
             <div class="knowledge__container container">
                 <div class="knowledge__text">
                     <h2 class="subtitle">Inicio de sesión</h2>
@@ -68,14 +68,14 @@
                         ¿No estás registrado? <a href="registro.php">Regístrate</a>
                     </div>
                     <h6>-</h6>
-                    <a href="#" class="cta">Iniciar sesión</a>
+                    <input type="submit" name="sub" value="Iniciar sesión">
                 </div>
 
                 <figure class="knowledge__picture">
                     <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
                 </figure>
             </div>
-        </section>
+        </form>
     </main>
 
     <footer class="footer">

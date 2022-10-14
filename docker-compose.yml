@@ -1,6 +1,6 @@
 services:
   web:
-    image: EmpenameEsta
+    image: empenameesta
     container_name: docker-php
     environment:
       - ALLOW_OVERRIDE=true
@@ -9,7 +9,7 @@ services:
     links:
       - db
     volumes:
-      - ./app:/var/www/html/
+      - ./:/var/www/html/
 
   db:
     image: mariadb:10.8.2

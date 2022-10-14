@@ -52,7 +52,7 @@
     </header>
 
     <main>
-        <section class="knowledge">
+        <form action="./registro.php" method="post">
             <div class="knowledge__container container">
                 <div class="knowledge__text">
                     <h2 class="subtitle">Registro</h2>
@@ -86,14 +86,14 @@
                         <input type="email" placeholder="Email: solo válidos" class="footer__input">
                     </div>
                     <h6 style="color:#808080">-> (ejemplo@servidor.extensión)</h6>
-                    <a href="#" class="cta">Registrarse</a>
+                    <input type="submit" name="sub" value="Registrarse">
                 </div>
 
                 <figure class="knowledge__picture">
                     <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
                 </figure>
             </div>
-        </section>
+        </form>
     </main>
 
     <footer class="footer">
