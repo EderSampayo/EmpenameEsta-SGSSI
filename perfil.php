@@ -1,10 +1,10 @@
 <?php
-    session_start();
+    /*session_start();
     if (!isset($_SESSION['user_id'])) {
         header("location: ./iniciosesion.php");
     } else {
         header("location: ./perfil.php");
-    }
+    }*/
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +39,7 @@
                     <a href="productos.php" class="nav__links">Productos</a>
                 </li>
                 <li class="nav__items">
-                    <a href="iniciosesion.php" class="nav__links">Iniciar sesión</a>
+                    <a href="perfil.php" class="nav__links">Perfil</a>
                 </li>
 
                 <img src="images/cerrar.svg" class="nav__close" alt=""> 
@@ -120,7 +120,7 @@
                         <a href="productos.php" class="nav__links">Productos</a>
                     </li>
                     <li class="nav__items">
-                        <a href="iniciosesion.php" class="nav__links">Iniciar sesión</a>
+                        <a href="perfil.php" class="nav__links">Perfil</a>
                     </li>
                 </ul>
             </nav>
