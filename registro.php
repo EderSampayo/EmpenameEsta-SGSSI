@@ -99,7 +99,7 @@
         $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
         if(isset($_POST['Register'])) /*Si se ha pulsado el botón con nombre Register */
         {
-            if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1*/
+            if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
             strlen($_POST['Password']) >= 1 &&
             strlen($_POST['NomApe']) >= 1 &&
             strlen((string)$_POST['DNI']) >= 1 &&    /*Cast a string*/
@@ -108,24 +108,36 @@
             strlen($_POST['Email']) >= 1)
             {
                 $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
-                $password = trim($_POST['Password']);
-                $nomApe = trim($_POST['NomApe']);
-                $dni = trim($_POST['DNI']);
-                $telefono = trim($_POST['Telefono']);
-                $fechaNacimiento = date("d/m/y");
-                $email = trim($_POST['Email']);
 
-                $consulta = "INSERT INTO Usuario VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
-                $resultado = mysqli_query($conexion, $consulta);
+                $consulta2 = "SELECT * FROM Usuario WHERE Username='$username'";
+                $resultado2 = mysqli_query($conexion, $consulta2);
 
-                if($resultado){
-                    ?>
-                    <h3 class ="registradoCorrectamente">¡Te has registrado correctamente!</h3>
-                    <?php
+                if(empty($resultado2))    /*Si el usuario no existe en la BD -> Se añade*/
+                {
+                    $password = trim($_POST['Password']);
+                    $nomApe = trim($_POST['NomApe']);
+                    $dni = trim($_POST['DNI']);
+                    $telefono = trim($_POST['Telefono']);
+                    $fechaNacimiento = date("d/m/y");
+                    $email = trim($_POST['Email']);
+    
+                    $consulta = "INSERT INTO Usuario VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
+                    $resultado = mysqli_query($conexion, $consulta);
+    
+                    if($resultado){
+                        ?>
+                        <h3 class ="registradoCorrectamente">¡Te has registrado correctamente!</h3>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <h3 class ="registroError">¡Ha ocurrido un error!</h3>
+                        <?php
+                    }
                 }
                 else{
                     ?>
-                    <h3 class ="registroError">¡Ha ocurrido un error!</h3>
+                    <h3 class ="registroError">¡El nombre de usuario ya está registrado en nuestro sistema!</h3>
                     <?php
                 }
             }
