@@ -111,39 +111,105 @@
 
                 $consulta2 = "SELECT * FROM Usuario WHERE Username='$username'";
                 $resultado2 = mysqli_query($conexion, $consulta2);
+                $totalFilasRdo2    =    mysqli_num_rows($resultado2);
 
-                if(empty($resultado2))    /*Si el usuario no existe en la BD -> Se añade*/
+                if($totalFilasRdo2 == 0)    /*Si el usuario no existe en la BD -> Se añade*/
                 {
                     $password = trim($_POST['Password']);
                     $nomApe = trim($_POST['NomApe']);
-                    $dni = trim($_POST['DNI']);
-                    $telefono = trim($_POST['Telefono']);
-                    $fechaNacimiento = date("d/m/y");
-                    $email = trim($_POST['Email']);
-    
-                    $consulta = "INSERT INTO Usuario VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
-                    $resultado = mysqli_query($conexion, $consulta);
-    
-                    if($resultado){
+
+                    if (!preg_match("#^[a-zA-Z]+$#", $nomApe)) { /*Si no tiene solo texto */
                         ?>
-                        <h3 class ="registradoCorrectamente">¡Te has registrado correctamente!</h3>
+                        <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
                         <?php
-                    }
-                    else{
-                        ?>
-                        <h3 class ="registroError">¡Ha ocurrido un error!</h3>
-                        <?php
-                    }
+                     } else {
+                        $dni = trim($_POST['DNI']);
+                        
+                        function es_dni_valido($dni){
+                            $dni_length = strlen((string)$dni);
+                            if($dni_length != 9)
+                            {
+                                return false;
+                            }
+                            if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
+                            {
+                                $letter = substr($dni, -1);
+                                $numbers = substr($dni, 0, -1);
+                                if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
+                                {
+                                        return true;
+                                }
+                                return false;
+                            }
+                          }
+                        
+                        
+                        if(!es_dni_valido($dni))
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
+                            <?php
+                        }
+                        else{
+                            $telefono = trim($_POST['Telefono']);
+
+                            $tlf_length = strlen((string)$telefono);
+                            if(!is_numeric($telefono))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡El teléfono solo puede contener números!</h3>
+                                <?php
+                            }
+                            else if($tlf_length != 9)
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡El teléfono tiene que tener 9 dígitos!</h3>
+                                <?php
+                            }
+                            else{
+                                $fechaNacimiento = date("Y-m-d");
+                                function validateDate($date, $format = 'Y-m-d')
+                                    {
+                                        $d = DateTime::createFromFormat($format, $date);
+                                        // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+                                        return $d && $d->format($format) === $date;
+                                    }
+                                if(!validateDate($fechaNacimiento)) /* Creo que funciona :)*/
+                                {
+                                    ?>
+                                    <h3 class ="ErrorRegistro">¡La fecha de nacimiento introducida no es válida!</h3>
+                                    <?php
+                                }
+                                else{
+                                    $email = trim($_POST['Email']);
+        
+                                    $consulta = "INSERT INTO Usuario VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
+                                    $resultado = mysqli_query($conexion, $consulta);
+        
+                                    if($resultado){
+                                        ?>
+                                        <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
+                                        <?php
+                                    }
+                                    else{
+                                        ?>
+                                        <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                        <?php
+                                    }
+                                }
+                            }
+                        }
+                     }
                 }
                 else{
                     ?>
-                    <h3 class ="registroError">¡El nombre de usuario ya está registrado en nuestro sistema!</h3>
+                    <h3 class ="ErrorRegistro">¡El nombre de usuario ya está registrado en nuestro sistema!</h3>
                     <?php
                 }
             }
             else{
                 ?>
-                <h3 class ="registroError">¡Completa los campos!</h3>
+                <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
                 <?php
             }
         }
