@@ -190,6 +190,8 @@
                                         ?>
                                         <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
                                         <?php
+                                        $_SESSION['user_id'] = $username;
+                                        header("location: ./principal.php");
                                     }
                                     else{
                                         ?>

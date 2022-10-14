@@ -99,6 +99,8 @@
                         ?>
                         <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
                         <?php
+                        $_SESSION['user_id'] = $username;
+                        header("location: ./principal.php");
                     }
                     else
                     {

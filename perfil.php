@@ -1,6 +1,6 @@
 <?php
-    /*session_start();
-    if (!isset($_SESSION['user_id'])) {
+    session_start();
+    /*if (!isset($_SESSION['user_id'])) {
         header("location: ./iniciosesion.php");
     } else {
         header("location: ./perfil.php");
@@ -58,6 +58,12 @@
 
     <main>
         <section class="knowledge">
+
+            <?php
+            /* Mensaje de bienvenida*/
+            echo "<h3> Bienvenido " . $_SESSION['user_id'];
+            ?>
+
             <div class="knowledge__container container">
                 <div class="knowledge__text">
                     <h2 class="subtitle">Cambio de datos</h2>
