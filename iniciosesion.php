@@ -57,18 +57,18 @@
                 <div class="knowledge__text">
                     <h2 class="subtitle">Inicio de sesión</h2>
                     <div class="footer__input">
-                        <input type="username" placeholder="Nombre de usuario:" class="footer__input">
+                        <input type="username" name="Username" placeholder="Nombre de usuario:" class="footer__input">
                     </div>
                     &nbsp;
                     <div class="footer__input">
-                        <input type="contra" placeholder="Contraseña:" class="footer__input">
+                        <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input">
                     </div>
                     <h6>-</h6>
                     <div class="registrarse">
                         ¿No estás registrado? <a href="registro.php">Regístrate</a>
                     </div>
                     <h6>-</h6>
-                    <input type="submit" name="sub" value="Iniciar sesión">
+                    <input type="submit" name="InicSesion" value="Iniciar sesión">
                 </div>
 
                 <figure class="knowledge__picture">
@@ -76,6 +76,52 @@
                 </figure>
             </div>
         </form>
+        <?php
+        $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+        if(isset($_POST['InicSesion'])) /*Si se ha pulsado el botón con nombre InicSesion */
+        {
+            if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
+            strlen($_POST['Password']) >= 1)
+            {
+                $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
+
+                $consulta1 = "SELECT * FROM Usuario WHERE Username='$username'";
+                $resultado1 = mysqli_query($conexion, $consulta1);
+                $totalFilasRdo1    =    mysqli_num_rows($resultado1);
+                if($totalFilasRdo1 != 0)    /*Si el usuario existe en la BD -> Se continúa*/
+                {
+                    $password = trim($_POST['Password']);
+                    $consulta2 = "SELECT * FROM Usuario WHERE Password='$password'";
+                    $resultado2 = mysqli_query($conexion, $consulta2);
+                    $totalFilasRdo2    =    mysqli_num_rows($resultado2);
+                    if($totalFilasRdo2 != 0)    /*Si el usuario ha introducido la contraseña correcta -> Se loguea*/
+                    {
+                        ?>
+                        <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
+                        <?php
+                    }
+                    else
+                    {
+                        ?>
+                        <h3 class ="ErrorRegistro">¡La contraseña introducida no es correcta!</h3>
+                        <?php
+                    }
+                }
+                else
+                {
+                    ?>
+                    <h3 class ="ErrorRegistro">¡El usuario introducido no está registrado en nuestro sistema!</h3>
+                    <?php
+                }
+            }
+            else{
+                ?>
+                <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
+                <?php
+            }
+        }
+        ?>
+
     </main>
 
     <footer class="footer">
