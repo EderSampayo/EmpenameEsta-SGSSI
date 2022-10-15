@@ -96,7 +96,11 @@
         </form>
 
         <?php
-        $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+        $conexion = mysqli_connect('127.0.0.1','admin','admin1','empenameesta'); /*Adaptarlo a Docker*/
+        if ($conexion->connect_error)
+        {
+            die("Database connection failed: " . $conn->connect_error);
+        }
         if(isset($_POST['Register'])) /*Si se ha pulsado el botón con nombre Register */
         {
             if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
@@ -185,6 +189,10 @@
         
                                     $consulta = "INSERT INTO Usuario VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
                                     $resultado = mysqli_query($conexion, $consulta);
+
+                                    ?>
+                                    <h3 class ="ErrorRegistro"> '$username' </h3>
+                                    <?php
         
                                     if($resultado){
                                         ?>
@@ -215,10 +223,12 @@
                 <?php
             }
         }
-        /*if($conexion)
+        if($conexion)
         {
             echo "todo correcto";
-        }*/
+        } else {
+            echo "no conex";
+        }
         ?>
 
     </main>
