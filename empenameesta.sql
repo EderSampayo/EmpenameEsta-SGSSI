@@ -26,8 +26,14 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `producto`
 --
+DROP DATABASE IF EXISTS EMPENAMEESTA;
+CREATE DATABASE EMPENAMEESTA;
 
-CREATE TABLE `producto` (
+USE EMPENAMEESTA;
+
+DROP TABLE IF EXISTS PRODUCTO;
+
+CREATE TABLE PRODUCTO (
   `Nombre` varchar(30) NOT NULL,
   `Descripcion` varchar(80) NOT NULL,
   `Valor` decimal(10,2) NOT NULL,
@@ -41,8 +47,8 @@ CREATE TABLE `producto` (
 --
 -- Estructura de tabla para la tabla `usuario`
 --
-
-CREATE TABLE `usuario` (
+DROP TABLE IF EXISTS USUARIO;
+CREATE TABLE USUARIO (
   `Username` varchar(30) NOT NULL,
   `Password` varchar(30) NOT NULL,
   `NombreYApellidos` varchar(30) NOT NULL,

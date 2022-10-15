@@ -1,3 +1,4 @@
+version: "3.1"
 services:
   web:
     image: empenameesta
@@ -19,10 +20,10 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: "root1"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "admin1"
+      MYSQL_DATABASE: "empenameesta"
     ports:
       - "8889:3306"
 
@@ -33,6 +34,6 @@ services:
     ports:
       - 8890:80
     environment:
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: EmpenameEsta
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "admin1"
+      MYSQL_DATABASE: "empenameesta"
