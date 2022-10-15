@@ -58,36 +58,101 @@
 
     <main>
         <section class="knowledge">
-            <div class="knowledge__container container">
-                <div class="knowledge__text">
-                    <h2 class="subtitle">Añadir artículo</h2>
-                    <div class="footer__input">
-                        <input type="nomP" placeholder="Nombre del producto:" class="footer__input">
+            <form action="./productos.php" method="post">
+                <div class="knowledge__container container">
+                    <div class="knowledge__text">
+                        <h2 class="subtitle">Añadir artículo</h2>
+                        <div class="footer__input">
+                            <input type="nomP" name="NombreProducto" placeholder="Nombre del producto:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="descP" name="Descripcion" placeholder="Descripción:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="valor" name="Valor" placeholder="Valor:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="antiguedad" name="Antiguedad" placeholder="Antiguedad (años):" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="contra" name="MarcaAutor"placeholder="Marca/Autor:" class="footer__input">
+                        </div>
+                        <h6>-</h6>
+                        <input type="submit" name="Anadir" value="Añadir artículo">
                     </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="descP" placeholder="Descripción:" class="footer__input">
-                    </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="valor" placeholder="Valor:" class="footer__input">
-                    </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="antiguedad" placeholder="Antiguedad (años):" class="footer__input">
-                    </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="contra" placeholder="Marca/Autor:" class="footer__input">
-                    </div>
-                    <h6>-</h6>
-                    <a href="#" class="cta">Añadir artículo</a>
+    
+                    <figure class="knowledge__picture">
+                        <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
+                    </figure>
                 </div>
+            </form>
 
-                <figure class="knowledge__picture">
-                    <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
-                </figure>
-            </div>
+            <?php
+            $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+            if(isset($_POST['Anadir'])) /*Si se ha pulsado el botón con nombre Register */
+            {
+                if(strlen($_POST['NombreProducto']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
+                strlen($_POST['Descripcion']) >= 1 &&
+                strlen((string)$_POST['Valor']) >= 1 &&    /*Cast a string*/
+                strlen((string)$_POST['Antiguedad']) >= 1 &&
+                strlen($_POST['MarcaAutor']) >= 1)
+                {
+                    $nombreProducto = trim($_POST['NombreProducto']);
+                    $descripcion = trim($_POST['Descripcion']);
+                    $valor = trim($_POST['Valor']);
+
+                            $valor_length = strlen((string)$valor);
+                            if(!is_numeric($valor))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡El valor solo puede contener números!</h3>
+                                <?php
+                            }
+                            else
+                            {
+                                $antiguedad = trim($_POST['Antiguedad']);
+
+                                $antiguedad_length = strlen((string)$antiguedad);
+                                if(!is_numeric($antiguedad))
+                                {
+                                    ?>
+                                    <h3 class ="ErrorRegistro">¡La antiguedad solo puede contener números!</h3>
+                                    <?php
+                                }
+                                else
+                                {
+                                    $marcaAutor = trim($_POST['MarcaAutor']);
+
+                                    /* Consulta */
+                                    $consulta = "INSERT INTO Producto(Nombre, Descripcion, Valor, Antiguedad, MarcaAutor) VALUES ('$nombreProducto', '$descripcion', '$valor', '$antiguedad', '$marcaAutor')";
+                                    $resultado = mysqli_query($conexion, $consulta);
+
+                                    if($resultado){
+                                        ?>
+                                        <h3 class ="OkRegistro">¡Se ha registrado el producto correctamente!</h3>
+                                        <?php
+                                    }
+                                    else{
+                                        ?>
+                                        <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                        <?php
+                                    }
+                                }
+                            }
+                }
+                else
+                {
+                    ?>
+                    <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
+                    <?php
+                }
+            }
+            ?>
+
         </section>
 
         <section class="knowledge">
