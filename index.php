@@ -1,10 +1,10 @@
 <?php
     session_start();
-    if (!isset($_SESSION['user_id'])) {
+    /*if (!isset($_SESSION['user_id'])) {
         header("location: ./iniciosesion.php");
     } else {
         header("location: ./index.php");
-    }
+    }*/
 ?>
 
 <!DOCTYPE html>

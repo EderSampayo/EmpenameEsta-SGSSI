@@ -63,53 +63,276 @@
             /* Mensaje de bienvenida*/
             echo "<h3> Bienvenido " . $_SESSION['user_id'];
             ?>
+            <form action="./perfil.php" method="post">
+                <div class="knowledge__container container">
+                    <div class="knowledge__text">
+                        <h2 class="subtitle">Cambio de datos</h2>
+                        <div class="footer__input">
+                            <input type="nombreYape" name="NomYApe" placeholder="Nombre y Apellidos:" class="footer__input">
+                        </div>
+                        <input type="submit" name="CambiarNomYApe" value="Cambiar">
+                        <h6>-</h6>
+                        &nbsp;
 
-            <div class="knowledge__container container">
-                <div class="knowledge__text">
-                    <h2 class="subtitle">Cambio de datos</h2>
-                    <div class="footer__input">
-                        <input type="nombreYape" placeholder="Nombre y Apellidos:" class="footer__input">
-                    </div>
-                    <h6>-</h6>
-                    <a href="#" class="cta">Cambiar</a>
-                    <h6>-</h6>
-                    &nbsp;
+                        <div class="footer__input">
+                            <input type="dni" name="DNI" placeholder="DNI:" class="footer__input">
+                        </div>
+                        <input type="submit" name="CambiarDNI" value="Cambiar">
+                        <h6>-</h6>
+                        &nbsp;
 
-                    <div class="footer__input">
-                        <input type="dni" placeholder="DNI:" class="footer__input">
-                    </div>
-                    <h6>-</h6>
-                    <a href="#" class="cta">Cambiar</a>
-                    <h6>-</h6>
-                    &nbsp;
+                        <div class="footer__input">
+                            <input type="telefono" name="Telefono" placeholder="Teléfono:" class="footer__input">
+                        </div>
+                        <input type="submit" name="CambiarTlf" value="Cambiar">
+                        <h6>-</h6>
+                        &nbsp;
 
-                    <div class="footer__input">
-                        <input type="telefono" placeholder="Teléfono:" class="footer__input">
-                    </div>
-                    <h6>-</h6>
-                    <a href="#" class="cta">Cambiar</a>
-                    <h6>-</h6>
-                    &nbsp;
+                        <div class="footer__input">
+                            <input type="fechaNacimiento" name="FNac" placeholder="Fecha de Nacimiento:" class="footer__input">
+                        </div>
+                        <input type="submit" name="CambiarFNac" value="Cambiar">
+                        <h6>-</h6>
+                        &nbsp;
 
-                    <div class="footer__input">
-                        <input type="fechaNacimiento" placeholder="Fecha de Nacimiento:" class="footer__input">
+                        <div class="footer__input">
+                            <input type="email" name="Email" placeholder="Email:" class="footer__input">
+                        </div>
+                        <input type="submit" name="CambiarEmail" value="Cambiar">
+                        <h6>-</h6>
                     </div>
-                    <h6>-</h6>
-                    <a href="#" class="cta">Cambiar</a>
-                    <h6>-</h6>
-                    &nbsp;
 
-                    <div class="footer__input">
-                        <input type="email" placeholder="Email:" class="footer__input">
-                    </div>
-                    <h6>-</h6>
-                    <a href="#" class="cta">Cambiar</a>
+                    <figure class="knowledge__picture">
+                        <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
+                    </figure>
                 </div>
+            </form>
 
-                <figure class="knowledge__picture">
-                    <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
-                </figure>
-            </div>
+            <?php
+        $usuario = $_SESSION['user_id'];
+        /*==================*/
+        /*NOMBRE Y APELLIDOS*/
+        /*==================*/
+        if(isset($_POST['CambiarNomYApe'])) /*Si se ha pulsado el botón con nombre InicSesion */
+        {
+            if(strlen($_POST['NomYApe']) >= 1)   /*Si longitud >= 1, es decir, si no está vacío*/
+            {
+                $nomApe = trim($_POST['NomApe']);
+                if (!preg_match("#^[a-zA-Z]+$#", $nomApe)) { /*Si no tiene solo texto */
+                    ?>
+                    <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
+                    <?php
+                 } 
+                 else 
+                 {
+                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $consulta1 = "UPDATE Usuario SET NomYApe = '$nomApe' WHERE USUARIO = '$usuario'";
+                    $resultado = mysqli_query($conexion, $consulta);
+        
+                    if($resultado){
+                        ?>
+                        <h3 class ="OkRegistro">¡Nombre y apellidos cambiados correctamente!</h3>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡No se han podido cambiar el nombre y apellidos!</h3>
+                        <?php
+                    }
+                 }
+            }
+            else{
+                ?>
+                <h3 class ="ErrorRegistro">¡Completa el campo!</h3>
+                <?php
+            }
+        }
+
+        /*==================*/
+        /*DNI*/
+        /*==================*/
+
+        function es_dni_valido($dni){
+            $dni_length = strlen((string)$dni);
+            if($dni_length != 9)
+            {
+                return false;
+            }
+            if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
+            {
+                $letter = substr($dni, -1);
+                $numbers = substr($dni, 0, -1);
+                if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
+                {
+                        return true;
+                }
+                return false;
+            }
+          }
+
+        if(isset($_POST['CambiarDNI']))
+        {
+            if(strlen($_POST['DNI']) >= 1)
+            {
+                $dni = trim($_POST['DNI']);
+                if(!es_dni_valido($dni)) {
+                    ?>
+                    <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
+                    <?php
+                 } 
+                 else 
+                 {
+                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $consulta1 = "UPDATE Usuario SET DNI = '$dni' WHERE USUARIO = '$usuario'";
+                    $resultado = mysqli_query($conexion, $consulta);
+        
+                    if($resultado){
+                        ?>
+                        <h3 class ="OkRegistro">¡DNI cambiado correctamente!</h3>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡No se ha podido cambiar el DNI!</h3>
+                        <?php
+                    }
+                 }
+            }
+            else{
+                ?>
+                <h3 class ="ErrorRegistro">¡Completa el campo!</h3>
+                <?php
+            }
+        }
+
+        /*==================*/
+        /*TELÉFONO*/
+        /*==================*/
+
+        if(isset($_POST['CambiarTlf']))
+        {
+            if(strlen($_POST['Telefono']) >= 1)
+            {
+                $telefono = trim($_POST['Telefono']);
+
+                $tlf_length = strlen((string)$telefono);
+                if(!is_numeric($telefono))
+                {
+                    ?>
+                    <h3 class ="ErrorRegistro">¡El teléfono solo puede contener números!</h3>
+                    <?php
+                }
+                else if($tlf_length != 9)
+                {
+                    ?>
+                    <h3 class ="ErrorRegistro">¡El teléfono tiene que tener 9 dígitos!</h3>
+                    <?php
+                }
+                else 
+                {
+                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $consulta1 = "UPDATE Usuario SET Telefono = '$telefono' WHERE USUARIO = '$usuario'";
+                    $resultado = mysqli_query($conexion, $consulta);
+        
+                    if($resultado){
+                        ?>
+                        <h3 class ="OkRegistro">¡Teléfono cambiado correctamente!</h3>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡No se ha podido cambiar el Teléfono!</h3>
+                        <?php
+                    }
+                }
+            }
+            else{
+                ?>
+                <h3 class ="ErrorRegistro">¡Completa el campo!</h3>
+                <?php
+            }
+        }
+
+        /*==================*/
+        /*FECHA DE NACIMIENTO*/
+        /*==================*/
+
+        if(isset($_POST['CambiarFNac']))
+        {
+            if(strlen($_POST['FNac']) >= 1)
+            {
+                $fechaNacimiento = date("Y-m-d");
+                function validateDate($date, $format = 'Y-m-d')
+                    {
+                        $d = DateTime::createFromFormat($format, $date);
+                        // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+                        return $d && $d->format($format) === $date;
+                    }
+                if(!validateDate($fechaNacimiento)) /* Creo que funciona :)*/
+                {
+                    ?>
+                    <h3 class ="ErrorRegistro">¡La fecha de nacimiento introducida no es válida!</h3>
+                    <?php
+                }
+                else 
+                {
+                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $consulta1 = "UPDATE Usuario SET FechaNacimiento = '$fechaNacimiento' WHERE USUARIO = '$usuario'";
+                    $resultado = mysqli_query($conexion, $consulta);
+        
+                    if($resultado){
+                        ?>
+                        <h3 class ="OkRegistro">¡Fecha de nacimiento cambiada correctamente!</h3>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡No se ha podido cambiar la fecha de nacimiento!</h3>
+                        <?php
+                    }
+                }
+            }
+            else{
+                ?>
+                <h3 class ="ErrorRegistro">¡Completa el campo!</h3>
+                <?php
+            }
+        }
+
+        /*==================*/
+        /*EMAIL*/
+        /*==================*/
+
+        if(isset($_POST['CambiarEmail']))
+        {
+            if(strlen($_POST['Email']) >= 1)
+            {
+                $email = trim($_POST['Email']);
+                $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                $consulta1 = "UPDATE Usuario SET Email = '$email' WHERE USUARIO = '$usuario'";
+                $resultado = mysqli_query($conexion, $consulta);
+    
+                if($resultado){
+                    ?>
+                    <h3 class ="OkRegistro">¡Email cambiado correctamente!</h3>
+                    <?php
+                }
+                else{
+                    ?>
+                    <h3 class ="ErrorRegistro">¡No se ha podido cambiar el email!</h3>
+                    <?php
+                }
+            }
+            else{
+                ?>
+                <h3 class ="ErrorRegistro">¡Completa el campo!</h3>
+                <?php
+            }
+        }
+
+        ?>
+
+
         </section>
     </main>
 
