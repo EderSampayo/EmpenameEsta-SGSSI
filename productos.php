@@ -337,6 +337,62 @@
 
         </section>
 
+        <section class="knowledge">
+            <form action="./productos.php" method="post">
+                <div class="knowledge__container container">
+                    <div class="knowledge__text">
+                        <h2 class="subtitle">Eliminar artículo</h2>
+                        <div class="footer__input">
+                            <input type="Id" name="Id2" placeholder="Id del producto:" class="footer__input">
+                        </div>
+                        <h6>-</h6>
+                        <input type="submit" name="Editar" value="Eliminar artículo">
+                    </div>
+                </div>
+            </form>
+            <?php
+        $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+        if ($conexion->connect_error)
+        {
+            die("Database connection failed: " . $conn->connect_error);
+        }
+        
+        if(isset($_POST['Eliminar artículo'])) /*Si se ha pulsado el botón con nombre InicSesion */
+        {
+            $consultaId = "SELECT * FROM PRODUCTO WHERE Id='$id'";
+            $resultadoId = mysqli_query($conexion, $consultaId);
+            if($resultadoId->num_rows <= 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
+            {
+                ?>
+                <h3 class ="ErrorRegistro">¡El Id introducido no está registrado en nuestro sistema!</h3>
+                <?php
+            }
+            else if(!$resultadoId)
+            {
+                ?>
+                <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                <?php
+            }
+            else    /* El ID está en la BD */
+            {
+                $consulta = "DELETE FROM PRODUCTO WHERE Id='$id'";
+                $resultado = mysqli_query($conexion, $consulta);
+            
+                if($resultado){
+                    ?>
+                    <h3 class ="OkRegistro">¡Se ha eliminado el producto correctamente! Recargue la página para que se muestran los nuevos datos.</h3>
+                    <?php
+                }
+                else{
+                    ?>
+                    <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                    <?php
+                }
+            }
+        }
+        ?>
+        </section>    
+
     </main>
 
     <footer class="footer">
