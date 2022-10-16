@@ -26,7 +26,7 @@ Instrucciones:
           `Valor` decimal(10,2) NOT NULL,
           `Antiguedad` int(6) NOT NULL,
           `MarcaAutor` varchar(20) NOT NULL,
-          `Id` int(11) NOT NULL AUTO_INCREMENT
+          `Id` int(11) NOT NULL
         );
         $DROP TABLE IF EXISTS USUARIO;
         $CREATE TABLE USUARIO (
