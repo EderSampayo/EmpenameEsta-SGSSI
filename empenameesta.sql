@@ -39,7 +39,7 @@ CREATE TABLE PRODUCTO (
   `Valor` decimal(10,2) NOT NULL,
   `Antiguedad` int(6) NOT NULL,
   `MarcaAutor` varchar(20) NOT NULL,
-  `Id` int(11) NOT NULL
+  `Id` int(11) NOT NULL AUTO_INCREMENT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -81,9 +81,6 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
-ALTER TABLE `producto`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

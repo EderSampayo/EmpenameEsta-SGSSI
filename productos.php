@@ -138,10 +138,9 @@
                                     $marcaAutor = trim($_POST['MarcaAutor']);
 
                                     /* Consulta */
-                                    $consulta = "INSERT INTO Producto(Nombre, Descripcion, Valor, Antiguedad, MarcaAutor) VALUES ('$nombreProducto', '$descripcion', '$valor', '$antiguedad', '$marcaAutor')";
-                                    $resultado = mysqli_query($conexion, $consulta);
-
-                                    if($resultado){
+                                    $consulta = "INSERT INTO PRODUCTO(Nombre, Descripcion, Valor, Antiguedad, MarcaAutor) VALUES ('$nombreProducto', '$descripcion', $valor, $antiguedad, '$marcaAutor')";
+                                    
+                                    if(mysqli_query($conexion, $consulta)){
                                         ?>
                                         <h3 class ="OkRegistro">¡Se ha registrado el producto correctamente!</h3>
                                         <?php
@@ -196,7 +195,7 @@
                     echo "no conex";
                 }
                 
-                $consulta = "SELECT * FROM Producto";
+                $consulta = "SELECT * FROM PRODUCTO";
                 $resultado = mysqli_query($conexion, $consulta);
 
                 while($mostrar = mysqli_fetch_array($resultado))
@@ -333,7 +332,7 @@
                                             $marcaAutor = trim($_POST['MarcaAutor2']);
                                         
                                             /* Consulta */
-                                            $consulta = "UPDATE Producto SET Nombre='$nombreProducto', Descripcion='$descripcion', Valor='$valor', Antiguedad='$antiguedad', MarcaAutor='$marcaAutor' WHERE Id='$id'";
+                                            $consulta = "UPDATE PRODUCTO SET Nombre='$nombreProducto', Descripcion='$descripcion', Valor='$valor', Antiguedad='$antiguedad', MarcaAutor='$marcaAutor' WHERE Id='$id'";
                                             $resultado = mysqli_query($conexion, $consulta);
                                         
                                             if($resultado){
