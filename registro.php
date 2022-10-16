@@ -96,11 +96,19 @@
         </form>
 
         <?php
-        $conexion = mysqli_connect('127.0.0.1','admin','admin1','empenameesta'); /*Adaptarlo a Docker*/
+        $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
         if ($conexion->connect_error)
         {
             die("Database connection failed: " . $conn->connect_error);
         }
+
+        if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
+        {
+            echo "todo correcto";
+        } else {
+            echo "no conex";
+        }
+
         if(isset($_POST['Register'])) /*Si se ha pulsado el botón con nombre Register */
         {
             if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
@@ -222,12 +230,6 @@
                 <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
                 <?php
             }
-        }
-        if($conexion)
-        {
-            echo "todo correcto";
-        } else {
-            echo "no conex";
         }
         ?>
 
