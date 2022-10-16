@@ -33,7 +33,7 @@
 
             <ul class="nav__link nav__link--menu">
                 <li class="nav__items">
-                    <a href="index.php" class="nav__links">Inicio</a>
+                    <a href="principal.php" class="nav__links">Inicio</a>
                 </li>
                 <li class="nav__items">
                     <a href="productos.php" class="nav__links">Productos</a>
@@ -343,7 +343,7 @@
 
                 <ul class="nav__link nav__link--footer">
                     <li class="nav__items">
-                        <a href="index.php" class="nav__links">Inicio</a>
+                        <a href="principal.php" class="nav__links">Inicio</a>
                     </li>
                     <li class="nav__items">
                         <a href="productos.php" class="nav__links">Productos</a>
