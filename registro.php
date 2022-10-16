@@ -52,181 +52,187 @@
     </header>
 
     <main>
-        <form action="./registro.php" method="post">
-            <div class="knowledge__container container">
-                <div class="knowledge__text">
-                    <h2 class="subtitle">Registro</h2>
-                    <div class="footer__input">
-                        <input type="username" name="Username" placeholder="Username:" class="footer__input">
+        <section class="knowledge">
+            <form action="./registro.php" method="post">
+                <div class="knowledge__container container">
+                    <div class="knowledge__text">
+                        <h2 class="subtitle">Registro</h2>
+                        <div class="footer__input">
+                            <input type="username" name="Username" placeholder="Username:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="nombreYape" name="NomApe" placeholder="Nombre y Apellidos:" class="footer__input">
+                        </div>
+                        <h6 style="color:#808080">-> (solo texto) Ejemplo: Pepe García</h6>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="dni" name="DNI" placeholder="DNI: (formato: 11111111-Z)" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="telefono" name="Telefono" placeholder="Teléfono: (9 dígitos)" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="fechaNacimiento" name="FechaNacimiento" placeholder="Fecha de Nacimiento:" class="footer__input">
+                            <h6 style="color:#808080">-> formato: aaaa-mm-dd (1999-08-26)</h6>
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="email" name="Email" placeholder="Email: solo válidos" class="footer__input">
+                        </div>
+                        <h6 style="color:#808080">-> (ejemplo@servidor.extensión)</h6>
+                        <input type="submit" name="Register" value="Registrarse">
                     </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input">
-                    </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="nombreYape" name="NomApe" placeholder="Nombre y Apellidos:" class="footer__input">
-                    </div>
-                    <h6 style="color:#808080">-> (solo texto) Ejemplo: Pepe García</h6>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="dni" name="DNI" placeholder="DNI: (formato: 11111111-Z)" class="footer__input">
-                    </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="telefono" name="Telefono" placeholder="Teléfono: (9 dígitos)" class="footer__input">
-                    </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="fechaNacimiento" name="FechaNacimiento" placeholder="Fecha de Nacimiento:" class="footer__input">
-                        <h6 style="color:#808080">-> formato: aaaa-mm-dd (1999-08-26)</h6>
-                    </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="email" name="Email" placeholder="Email: solo válidos" class="footer__input">
-                    </div>
-                    <h6 style="color:#808080">-> (ejemplo@servidor.extensión)</h6>
-                    <input type="submit" name="Register" value="Registrarse">
+
+                    <figure class="knowledge__picture">
+                        <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
+                    </figure>
                 </div>
+            </form>
+        
 
-                <figure class="knowledge__picture">
-                    <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
-                </figure>
-            </div>
-        </form>
-
-        <?php
-        $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
-        if ($conexion->connect_error)
-        {
-            die("Database connection failed: " . $conn->connect_error);
-        }
-
-        if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-        {
-            echo "todo correcto";
-        } else {
-            echo "no conex";
-        }
-
-        if(isset($_POST['Register'])) /*Si se ha pulsado el botón con nombre Register */
-        {
-            if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
-            strlen($_POST['Password']) >= 1 &&
-            strlen($_POST['NomApe']) >= 1 &&
-            strlen((string)$_POST['DNI']) >= 1 &&    /*Cast a string*/
-            strlen((string)$_POST['Telefono']) >= 1 &&
-            strlen($_POST['FechaNacimiento']) >= 1 &&
-            strlen($_POST['Email']) >= 1)
+            <?php
+            $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+            if ($conexion->connect_error)
             {
-                $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
+                die("Database connection failed: " . $conn->connect_error);
+            }
 
-                $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'";
-                $resultado2 = mysqli_query($conexion, $consulta2);
+            if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
+            {
+                echo "todo correcto";
+            } else {
+                echo "no conex";
+            }
 
-                if($resultado2->num_rows == 0)    /*Si el usuario no existe en la BD -> Se añade*/
+            if(isset($_POST['Register'])) /*Si se ha pulsado el botón con nombre Register */
+            {
+                if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
+                strlen($_POST['Password']) >= 1 &&
+                strlen($_POST['NomApe']) >= 1 &&
+                strlen((string)$_POST['DNI']) >= 1 &&    /*Cast a string*/
+                strlen((string)$_POST['Telefono']) >= 1 &&
+                strlen($_POST['FechaNacimiento']) >= 1 &&
+                strlen($_POST['Email']) >= 1)
                 {
-                    $password = trim($_POST['Password']);
-                    $nomApe = trim($_POST['NomApe']);
+                    $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
 
-                    /*if (!ctype_alpha('$nomApe')) { /*Si no tiene solo texto */
-                     /*   ?>
-                        <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
-                        <?php
-                     } else {
+                    $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'";
+                    $resultado2 = mysqli_query($conexion, $consulta2);
+
+                    if($resultado2->num_rows == 0)    /*Si el usuario no existe en la BD -> Se añade*/
+                    {
+                        $password = trim($_POST['Password']);
+                        $nomApe = trim($_POST['NomApe']);
                         $dni = trim($_POST['DNI']);
-                        
-                        function es_dni_valido($dni){
-                            $dni_length = strlen((string)$dni);
-                            if($dni_length != 9)
-                            {
-                                return false;
-                            }
-                            if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
-                     /*       {
-                                $letter = substr($dni, -1);
-                                $numbers = substr($dni, 0, -1);
-                                if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
-                      /*          {
-                                        return true;
-                                }
-                                return false;
-                            }
-                          }
-                        
-                        
-                        if(!es_dni_valido($dni))
-                        {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
-                            <?php
-                        }
-                        else{*/
-                            $telefono = trim($_POST['Telefono']);
+                        $fechaNacimiento = trim($_POST['FechaNacimiento']);
 
-                            $tlf_length = strlen((string)$telefono);
-                            if(!is_numeric($telefono))
-                            {
-                                ?>
-                                <h3 class ="ErrorRegistro">¡El teléfono solo puede contener números!</h3>
-                                <?php
-                            }
-                            else if($tlf_length != 9)
-                            {
-                                ?>
-                                <h3 class ="ErrorRegistro">¡El teléfono tiene que tener 9 dígitos!</h3>
-                                <?php
-                            }
-                        /*    else{
-                                $fechaNacimiento = date("Y-m-d");
-                                function validateDate($date, $format = 'Y-m-d')
-                                    {
-                                        $d = DateTime::createFromFormat($format, $date);
-                                        // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
-                                        return $d && $d->format($format) === $date;
+                        /*if (!ctype_alpha('$nomApe')) { /*Si no tiene solo texto */
+                        /*   ?>
+                            <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
+                            <?php
+                        } else {
+                            $dni = trim($_POST['DNI']);
+                            
+                            function es_dni_valido($dni){
+                                $dni_length = strlen((string)$dni);
+                                if($dni_length != 9)
+                                {
+                                    return false;
+                                }
+                                if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
+                        /*       {
+                                    $letter = substr($dni, -1);
+                                    $numbers = substr($dni, 0, -1);
+                                    if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
+                        /*          {
+                                            return true;
                                     }
-                                if(!validateDate($fechaNacimiento)) /* Creo que funciona :)*/
-                        /*        {
+                                    return false;
+                                }
+                            }
+                            
+                            
+                            if(!es_dni_valido($dni))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
+                                <?php
+                            }
+                            else{*/
+                                $telefono = trim($_POST['Telefono']);
+
+                                $tlf_length = strlen((string)$telefono);
+                                if(!is_numeric($telefono))
+                                {
                                     ?>
-                                    <h3 class ="ErrorRegistro">¡La fecha de nacimiento introducida no es válida!</h3>
+                                    <h3 class ="ErrorRegistro">¡El teléfono solo puede contener números!</h3>
                                     <?php
                                 }
-                                else{*/
-                                    $email = trim($_POST['Email']);
-        
-                                    $consulta = "INSERT INTO USUARIO VALUES ('$Username', '$Password', '$NomApe', '$DNI', $Telefono, '$FechaNacimiento', '$Email')";
-                                    $resultado = mysqli_query($conexion, $consulta);
-        
-                                    if($resultado){
+                                else if($tlf_length != 9)
+                                {
+                                    ?>
+                                    <h3 class ="ErrorRegistro">¡El teléfono tiene que tener 9 dígitos!</h3>
+                                    <?php
+                                }
+                                else
+                                {
+                                    $fechaNacimiento = date("Y-m-d");
+                                    function validateDate($date, $format = 'Y-m-d')
+                                        {
+                                            $d = DateTime::createFromFormat($format, $date);
+                                            // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+                                            return $d && $d->format($format) === $date;
+                                        }
+                                    if(!validateDate($fechaNacimiento)) /* Creo que funciona :)*/
+                                   {
                                         ?>
-                                        <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
+                                        <h3 class ="ErrorRegistro">¡La fecha de nacimiento introducida no es válida!</h3>
                                         <?php
-                                        $_SESSION['user_id'] = $Username;
-                                        header("location: ./principal.php");
                                     }
                                     else{
-                                        ?>
-                                        <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
-                                        <?php
+                                        $email = trim($_POST['Email']);
+            
+                                        $consulta = "INSERT INTO USUARIO VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
+                                        $resultado = mysqli_query($conexion, $consulta);
+            
+                                        if($resultado){
+                                            ?>
+                                            <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
+                                            <?php
+                                            $_SESSION['user_id'] = $Username;
+                                            header("location: ./principal.php");
+                                        }
+                                        else{
+                                            ?>
+                                            <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                            <?php
+                                        }
                                     }
-                                /*}*/
+                                }
                             /*}*/
                         /*}*/
-                     /*}*/
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡El nombre de usuario ya está registrado en nuestro sistema!</h3>
+                        <?php
+                    }
                 }
                 else{
                     ?>
-                    <h3 class ="ErrorRegistro">¡El nombre de usuario ya está registrado en nuestro sistema!</h3>
+                    <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
                     <?php
                 }
             }
-            else{
-                ?>
-                <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
-                <?php
-            }
-        }
-        ?>
+            ?>
+        </section>
 
     </main>
 
