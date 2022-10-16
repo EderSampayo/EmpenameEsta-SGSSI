@@ -86,9 +86,8 @@
         <section class="knowledge">
             <div class="knowledge__container container">
                 <div class="knowledge__text">
-                    <h2 class="subtitle">Curso completo</h2>
-                    <p class="knowledge__paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi eos ea excepturi quas quidem ut exercitationem perferendis temporibus! Optio vel nihil quo esse adipisci modi! Iure quisquam minus veniam aspernatur?</p>
-                    <a href="#" class="cta">Entra al curso</a>
+                    <h2 class="subtitle">Portátil vendido</h2>
+                    <p class="knowledge__paragraph">Este es el mejor portátil que se ha vendido en nuestra casa de empeños</p>
                 </div>
 
                 <figure class="knowledge__picture">
@@ -220,7 +219,7 @@
         <section class="footer__copy container">
             <div class="footer__">
                 <a href="productos.php" class="footer__icons"><img src="./images/carrito.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
+                <a href="https://github.com/EderSampayo/EmpenameEsta-SGSSI.git" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
                 <a href="perfil.php" class="footer__icons"><img src="./images/usuario.svg" class="footer__img"></a>
             </div>
         </section>

@@ -103,14 +103,6 @@
             {
                 die("Database connection failed: " . $conn->connect_error);
             }
-
-            if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-            {
-                echo "todo correcto";
-            } else {
-                echo "no conex";
-            }
-
             if(isset($_POST['Register'])) /*Si se ha pulsado el botón con nombre Register */
             {
                 if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
@@ -137,7 +129,7 @@
                         /*   ?>
                             <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
                             <?php
-                        } else {
+                        } else {*/
                             $dni = trim($_POST['DNI']);
                             
                             function es_dni_valido($dni){
@@ -147,11 +139,11 @@
                                     return false;
                                 }
                                 if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
-                        /*       {
+                               {
                                     $letter = substr($dni, -1);
                                     $numbers = substr($dni, 0, -1);
                                     if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
-                        /*          {
+                                  {
                                             return true;
                                     }
                                     return false;
@@ -165,7 +157,7 @@
                                 <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
                                 <?php
                             }
-                            else{*/
+                            else{
                                 $telefono = trim($_POST['Telefono']);
 
                                 $tlf_length = strlen((string)$telefono);
@@ -216,7 +208,7 @@
                                         }
                                     }
                                 }
-                            /*}*/
+                            }
                         /*}*/
                     }
                     else{
@@ -259,7 +251,7 @@
         <section class="footer__copy container">
             <div class="footer__">
                 <a href="productos.php" class="footer__icons"><img src="./images/carrito.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
+                <a href="https://github.com/EderSampayo/EmpenameEsta-SGSSI.git" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
                 <a href="#" class="footer__icons"><img src="./images/usuario.svg" class="footer__img"></a>
             </div>
         </section>

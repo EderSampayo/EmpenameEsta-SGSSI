@@ -419,7 +419,7 @@
         <section class="footer__copy container">
             <div class="footer__">
                 <a href="#" class="footer__icons"><img src="./images/carrito.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
+                <a href="https://github.com/EderSampayo/EmpenameEsta-SGSSI.git" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
                 <a href="perfil.php" class="footer__icons"><img src="./images/usuario.svg" class="footer__img"></a>
             </div>
         </section>

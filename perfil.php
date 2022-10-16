@@ -178,13 +178,13 @@
             if(strlen($_POST['DNI']) >= 1)
             {
                 $dni = trim($_POST['DNI']);
-                /*if(!es_dni_valido($dni)) {
+                if(!es_dni_valido($dni)) {
                     ?>
                     <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
                     <?php
                  } 
                  else 
-                 {*/
+                 {
                     $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
                     if ($conexion->connect_error)
                     {
@@ -204,7 +204,7 @@
                         <h3 class ="ErrorRegistro">¡No se ha podido cambiar el DNI!</h3>
                         <?php
                     }
-                 /*}*/
+                 }
             }
             else{
                 ?>
@@ -356,8 +356,51 @@
         }
 
         ?>
+        <section class="container about">
+            <h2 class="subtitle">Datos personales</h2>
+            <p class="about__paragraph">Debajo se encuentran todos los datos que tenemos registrados en Empéñame Esta.</p>
 
+            <div class="about__main">
+            <table>
+                    <tr>
+                        <td>Nombre de Usuario</td>
+                        <td>Nombre y apellidos</td>
+                        <td>DNI</td>
+                        <td>Teléfono</td>
+                        <td>Fecha de nacimiento</td>
+                        <td>Email</td>
+                    </tr>
+                    <?php
 
+                    $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+                    if ($conexion->connect_error)
+                    {
+                        die("Database connection failed: " . $conn->connect_error);
+                    }
+                    
+                    $usuario = $_SESSION['user_id'];
+                    $consulta = "SELECT * FROM USUARIO WHERE Username = '$usuario'";
+                    $resultado = mysqli_query($conexion, $consulta);
+
+                    while($mostrar = mysqli_fetch_array($resultado))
+                    {
+                        ?>
+
+                            <tr>
+                                <td><?php echo $mostrar['Username']?></td>
+                                <td><?php echo $mostrar['NombreYApellidos']?></td>
+                                <td><?php echo $mostrar['DNI']?></td>
+                                <td><?php echo $mostrar['Telefono']?></td>
+                                <td><?php echo $mostrar['FechaNac']?></td>
+                                <td><?php echo $mostrar['Email']?></td>
+                            </tr>
+
+                        <?php
+                    }
+
+                    ?>
+                </table>
+                </div>    
         </section>
     </main>
 
@@ -384,7 +427,7 @@
         <section class="footer__copy container">
             <div class="footer__">
                 <a href="productos.php" class="footer__icons"><img src="./images/carrito.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
+                <a href="https://github.com/EderSampayo/EmpenameEsta-SGSSI.git" class="footer__icons"><img src="./images/github.svg" class="footer__img"></a>
                 <a href="#" class="footer__icons"><img src="./images/usuario.svg" class="footer__img"></a>
             </div>
         </section>
