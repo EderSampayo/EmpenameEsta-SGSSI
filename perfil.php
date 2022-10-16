@@ -125,7 +125,19 @@
                  } 
                  else 
                  {
-                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+                    if ($conexion->connect_error)
+                    {
+                        die("Database connection failed: " . $conn->connect_error);
+                    }
+
+                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
+                    {
+                        echo "todo correcto";
+                    } else {
+                    echo "no conex";
+                    }
+
                     $consulta1 = "UPDATE Usuario SET NomYApe = '$nomApe' WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
@@ -182,7 +194,19 @@
                  } 
                  else 
                  {
-                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+                    if ($conexion->connect_error)
+                    {
+                        die("Database connection failed: " . $conn->connect_error);
+                    }
+
+                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
+                    {
+                        echo "todo correcto";
+                    } else {
+                    echo "no conex";
+                    }
+                    
                     $consulta1 = "UPDATE Usuario SET DNI = '$dni' WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
@@ -230,7 +254,19 @@
                 }
                 else 
                 {
-                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+                    if ($conexion->connect_error)
+                    {
+                        die("Database connection failed: " . $conn->connect_error);
+                    }
+
+                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
+                    {
+                        echo "todo correcto";
+                    } else {
+                    echo "no conex";
+                    }
+                    
                     $consulta1 = "UPDATE Usuario SET Telefono = '$telefono' WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
@@ -276,7 +312,19 @@
                 }
                 else 
                 {
-                    $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                    $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+                    if ($conexion->connect_error)
+                    {
+                        die("Database connection failed: " . $conn->connect_error);
+                    }
+
+                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
+                    {
+                        echo "todo correcto";
+                    } else {
+                    echo "no conex";
+                    }
+                    
                     $consulta1 = "UPDATE Usuario SET FechaNacimiento = '$fechaNacimiento' WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
@@ -308,7 +356,19 @@
             if(strlen($_POST['Email']) >= 1)
             {
                 $email = trim($_POST['Email']);
-                $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
+                if ($conexion->connect_error)
+                {
+                    die("Database connection failed: " . $conn->connect_error);
+                }
+
+                if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
+                {
+                    echo "todo correcto";
+                } else {
+                    echo "no conex";
+                }
+                    
                 $consulta1 = "UPDATE Usuario SET Email = '$email' WHERE USUARIO = '$usuario'";
                 $resultado = mysqli_query($conexion, $consulta);
     
