@@ -1,10 +1,10 @@
 <?php
     session_start();
-    /*if (!isset($_SESSION['user_id'])) {
-        header("location: ./iniciosesion.php");
+    if (!isset($_SESSION['user_id'])) {
+        echo '<script type="text/javascript">window.location.replace("http://localhost:81/iniciosesion.php");</script>';
     } else {
-        header("location: ./index.php");
-    }*/
+        echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+    }
 ?>
 
 <!DOCTYPE html>

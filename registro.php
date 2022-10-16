@@ -71,7 +71,7 @@
                         <h6 style="color:#808080">-> (solo texto) Ejemplo: Pepe García</h6>
                         &nbsp;
                         <div class="footer__input">
-                            <input type="dni" name="DNI" placeholder="DNI: (formato: 11111111-Z)" class="footer__input">
+                            <input type="dni" name="DNI" placeholder="DNI: (formato: 11111111Z)" class="footer__input">
                         </div>
                         &nbsp;
                         <div class="footer__input">
@@ -207,7 +207,7 @@
                                             <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
                                             <?php
                                             $_SESSION['user_id'] = $Username;
-                                            header("location: ./principal.php");
+                                            echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
                                         }
                                         else{
                                             ?>
