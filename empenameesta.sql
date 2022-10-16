@@ -65,13 +65,13 @@ CREATE TABLE USUARIO (
 --
 -- Indices de la tabla `producto`
 --
-ALTER TABLE `producto`
+ALTER TABLE PRODUCTO
   ADD PRIMARY KEY (`Id`);
 
 --
 -- Indices de la tabla `usuario`
 --
-ALTER TABLE `usuario`
+ALTER TABLE USUARIO
   ADD PRIMARY KEY (`Username`);
 
 --
@@ -81,6 +81,9 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
+ALTER TABLE PRODUCTO
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
