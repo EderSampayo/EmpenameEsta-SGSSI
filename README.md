@@ -13,9 +13,11 @@ Instrucciones:
 
    # A continuación:
      Buscar dentro de la carpeta EmpenameEsta-SGSSI el archivo init.sh y ejecutarlo mediante el comando: $sudo ./init.sh
+     
      Una vez se haya ejecutado el init.sh ponemos los siguientes comandos para acceder a la base de datos:
         $sudo docker-compose exec db mysql -uadmin -padmin1
         $USE empenameesta;
+        
      Ahora crearemos las tablas:
         $DROP TABLE IF EXISTS PRODUCTO;
         $CREATE TABLE PRODUCTO (
