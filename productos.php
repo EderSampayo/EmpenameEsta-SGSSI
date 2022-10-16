@@ -1,9 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION['user_id'])) {
-        header("location: ./iniciosesion.php");
-    } else {
-        header("location: ./productos.php");
+        echo '<script type="text/javascript">window.location.replace("http://localhost:81/iniciosesion.php");</script>';
     }
 ?>
 
@@ -97,13 +95,6 @@
             {
                 die("Database connection failed: " . $conn->connect_error);
             }
-    
-            if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-            {
-                echo "todo correcto";
-            } else {
-                echo "no conex";
-            }
 
             if(isset($_POST['Anadir'])) /*Si se ha pulsado el botón con nombre Añadir */
             {
@@ -187,13 +178,6 @@
                 {
                     die("Database connection failed: " . $conn->connect_error);
                 }
-
-                if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-                {
-                    echo "todo correcto";
-                } else {
-                    echo "no conex";
-                }
                 
                 $consulta = "SELECT * FROM PRODUCTO";
                 $resultado = mysqli_query($conexion, $consulta);
@@ -264,13 +248,6 @@
             {
                 die("Database connection failed: " . $conn->connect_error);
             }
-
-            if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-            {
-                echo "todo correcto";
-            } else {
-                echo "no conex";
-            }
             
             if(isset($_POST['Editar'])) /*Si se ha pulsado el botón con nombre Editar */
             {
@@ -292,7 +269,6 @@
                     {
                         $consultaId = "SELECT * FROM PRODUCTO WHERE Id='$id'";
                         $resultadoId = mysqli_query($conexion, $consultaId);
-                        
                         if($resultadoId->num_rows <= 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
                         {
                             ?>

@@ -1,10 +1,8 @@
 <?php
     session_start();
-    /*if (!isset($_SESSION['user_id'])) {
-        header("location: ./iniciosesion.php");
-    } else {
-        header("location: ./perfil.php");
-    }*/
+    if (!isset($_SESSION['user_id'])) {
+        echo '<script type="text/javascript">window.location.replace("http://localhost:81/iniciosesion.php");</script>';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -118,27 +116,20 @@
             if(strlen($_POST['NomYApe']) >= 1)   /*Si longitud >= 1, es decir, si no está vacío*/
             {
                 $nomApe = trim($_POST['NomApe']);
-                if (!preg_match("#^[a-zA-Z]+$#", $nomApe)) { /*Si no tiene solo texto */
-                    ?>
+                /*if (!preg_match("#^[a-zA-Z]+$#", $nomApe)) { /*Si no tiene solo texto */
+                /*    ?>
                     <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
                     <?php
                  } 
                  else 
-                 {
+                 {*/
                     $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
                     if ($conexion->connect_error)
                     {
                         die("Database connection failed: " . $conn->connect_error);
                     }
 
-                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-                    {
-                        echo "todo correcto";
-                    } else {
-                    echo "no conex";
-                    }
-
-                    $consulta = "UPDATE USUARIO SET NomYApe = '$nomApe' WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET NombreYApellidos = '$nomApe' WHERE Username = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -151,7 +142,7 @@
                         <h3 class ="ErrorRegistro">¡No se han podido cambiar el nombre y apellidos!</h3>
                         <?php
                     }
-                 }
+                /*}*/
             }
             else{
                 ?>
@@ -187,27 +178,20 @@
             if(strlen($_POST['DNI']) >= 1)
             {
                 $dni = trim($_POST['DNI']);
-                if(!es_dni_valido($dni)) {
+                /*if(!es_dni_valido($dni)) {
                     ?>
                     <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
                     <?php
                  } 
                  else 
-                 {
+                 {*/
                     $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
                     if ($conexion->connect_error)
                     {
                         die("Database connection failed: " . $conn->connect_error);
                     }
-
-                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-                    {
-                        echo "todo correcto";
-                    } else {
-                    echo "no conex";
-                    }
                     
-                    $consulta = "UPDATE USUARIO SET DNI = '$dni' WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET DNI = '$dni' WHERE Username = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -220,7 +204,7 @@
                         <h3 class ="ErrorRegistro">¡No se ha podido cambiar el DNI!</h3>
                         <?php
                     }
-                 }
+                 /*}*/
             }
             else{
                 ?>
@@ -260,14 +244,8 @@
                         die("Database connection failed: " . $conn->connect_error);
                     }
 
-                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-                    {
-                        echo "todo correcto";
-                    } else {
-                    echo "no conex";
-                    }
                     
-                    $consulta = "UPDATE USUARIO SET Telefono = $telefono WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET Telefono = $telefono WHERE Username = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -318,14 +296,8 @@
                         die("Database connection failed: " . $conn->connect_error);
                     }
 
-                    if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-                    {
-                        echo "todo correcto";
-                    } else {
-                    echo "no conex";
-                    }
                     
-                    $consulta = "UPDATE USUARIO SET FechaNacimiento = '$fechaNacimiento' WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET FechaNac = '$fechaNacimiento' WHERE Username = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -361,15 +333,8 @@
                 {
                     die("Database connection failed: " . $conn->connect_error);
                 }
-
-                if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-                {
-                    echo "todo correcto";
-                } else {
-                    echo "no conex";
-                }
                     
-                $consulta = "UPDATE USUARIO SET Email = '$email' WHERE USUARIO = '$usuario'";
+                $consulta = "UPDATE USUARIO SET Email = '$email' WHERE Username = '$usuario'";
                 $resultado = mysqli_query($conexion, $consulta);
     
                 if($resultado){

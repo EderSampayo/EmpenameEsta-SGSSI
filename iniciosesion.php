@@ -52,42 +52,37 @@
     </header>
 
     <main>
-        <form action="./iniciosesion.php" method="post">
-            <div class="knowledge__container container">
-                <div class="knowledge__text">
-                    <h2 class="subtitle">Inicio de sesión</h2>
-                    <div class="footer__input">
-                        <input type="username" name="Username" placeholder="Nombre de usuario:" class="footer__input">
+        <section class="knowledge">
+            <form action="./iniciosesion.php" method="post">
+                <div class="knowledge__container container">
+                    <div class="knowledge__text">
+                        <h2 class="subtitle">Inicio de sesión</h2>
+                        <div class="footer__input">
+                            <input type="username" name="Username" placeholder="Nombre de usuario:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input">
+                        </div>
+                        <h6>-</h6>
+                        <div class="registrarse">
+                            ¿No estás registrado? <a href="registro.php">Regístrate</a>
+                        </div>
+                        <h6>-</h6>
+                        <input type="submit" name="InicSesion" value="Iniciar sesión">
                     </div>
-                    &nbsp;
-                    <div class="footer__input">
-                        <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input">
-                    </div>
-                    <h6>-</h6>
-                    <div class="registrarse">
-                        ¿No estás registrado? <a href="registro.php">Regístrate</a>
-                    </div>
-                    <h6>-</h6>
-                    <input type="submit" name="InicSesion" value="Iniciar sesión">
-                </div>
 
-                <figure class="knowledge__picture">
-                    <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
-                </figure>
-            </div>
-        </form>
+                    <figure class="knowledge__picture">
+                        <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
+                    </figure>
+                </div>
+            </form>
+        </section>
         <?php
         $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
         if ($conexion->connect_error)
         {
             die("Database connection failed: " . $conn->connect_error);
-        }
-
-        if($conexion)               /* Prueba para conexión, luego hay que quitarlo*/
-        {
-            echo "todo correcto";
-        } else {
-        echo "no conex";
         }
         
         if(isset($_POST['InicSesion'])) /*Si se ha pulsado el botón con nombre InicSesion */
@@ -112,9 +107,8 @@
                         <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
                         <?php
                         $_SESSION['user_id'] = $username;
-                        header("Status: 301 Moved Permanently");
-                        header("Location: );
-                        exit;
+                        echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+                        
                     }
                     else
                     {
