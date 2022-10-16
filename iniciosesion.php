@@ -97,13 +97,13 @@
             {
                 $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
 
-                $consulta1 = "SELECT * FROM Usuario WHERE Username='$username'";
+                $consulta1 = "SELECT * FROM USUARIO WHERE Username='$username'";
                 $resultado1 = mysqli_query($conexion, $consulta1);
-                $totalFilasRdo1    =    mysqli_num_rows($resultado1);
-                if($totalFilasRdo1 != 0)    /*Si el usuario existe en la BD -> Se continúa*/
+            
+                if($resultado1->num_rows > 0)    /*Si el usuario existe en la BD -> Se continúa*/
                 {
                     $password = trim($_POST['Password']);
-                    $consulta2 = "SELECT * FROM Usuario WHERE Password='$password'";
+                    $consulta2 = "SELECT * FROM USUARIO WHERE Password='$password'";
                     $resultado2 = mysqli_query($conexion, $consulta2);
                     $totalFilasRdo2    =    mysqli_num_rows($resultado2);
                     if($totalFilasRdo2 != 0)    /*Si el usuario ha introducido la contraseña correcta -> Se loguea*/
@@ -112,7 +112,9 @@
                         <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
                         <?php
                         $_SESSION['user_id'] = $username;
-                        header("location: ./principal.php");
+                        header("Status: 301 Moved Permanently");
+                        header("Location: );
+                        exit;
                     }
                     else
                     {

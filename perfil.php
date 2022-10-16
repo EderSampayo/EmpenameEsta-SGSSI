@@ -138,7 +138,7 @@
                     echo "no conex";
                     }
 
-                    $consulta1 = "UPDATE Usuario SET NomYApe = '$nomApe' WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET NomYApe = '$nomApe' WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -207,7 +207,7 @@
                     echo "no conex";
                     }
                     
-                    $consulta1 = "UPDATE Usuario SET DNI = '$dni' WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET DNI = '$dni' WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -267,7 +267,7 @@
                     echo "no conex";
                     }
                     
-                    $consulta1 = "UPDATE Usuario SET Telefono = '$telefono' WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET Telefono = $telefono WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -325,7 +325,7 @@
                     echo "no conex";
                     }
                     
-                    $consulta1 = "UPDATE Usuario SET FechaNacimiento = '$fechaNacimiento' WHERE USUARIO = '$usuario'";
+                    $consulta = "UPDATE USUARIO SET FechaNacimiento = '$fechaNacimiento' WHERE USUARIO = '$usuario'";
                     $resultado = mysqli_query($conexion, $consulta);
         
                     if($resultado){
@@ -369,7 +369,7 @@
                     echo "no conex";
                 }
                     
-                $consulta1 = "UPDATE Usuario SET Email = '$email' WHERE USUARIO = '$usuario'";
+                $consulta = "UPDATE USUARIO SET Email = '$email' WHERE USUARIO = '$usuario'";
                 $resultado = mysqli_query($conexion, $consulta);
     
                 if($resultado){

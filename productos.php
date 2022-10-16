@@ -1,10 +1,10 @@
 <?php
     session_start();
-    /*if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['user_id'])) {
         header("location: ./iniciosesion.php");
     } else {
         header("location: ./productos.php");
-    }*/
+    }
 ?>
 
 <!DOCTYPE html>
@@ -290,10 +290,10 @@
                     }
                     else
                     {
-                        $consultaId = "SELECT * FROM Producto WHERE Id='$id'";
+                        $consultaId = "SELECT * FROM PRODUCTO WHERE Id='$id'";
                         $resultadoId = mysqli_query($conexion, $consultaId);
-                        $totalFilasRdoId    =    mysqli_num_rows($resultadoId);
-                        if($totalFilasRdoId == 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
+                        
+                        if($resultadoId->num_rows <= 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
                         {
                             ?>
                             <h3 class ="ErrorRegistro">¡El Id introducido no está registrado en nuestro sistema!</h3>

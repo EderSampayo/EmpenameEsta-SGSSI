@@ -121,17 +121,16 @@
             {
                 $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
 
-                $consulta2 = "SELECT * FROM Usuario WHERE Username='$username'";
+                $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'";
                 $resultado2 = mysqli_query($conexion, $consulta2);
-                $totalFilasRdo2    =    mysqli_num_rows($resultado2);
 
-                if($totalFilasRdo2 == 0)    /*Si el usuario no existe en la BD -> Se añade*/
+                if($resultado2->num_rows == 0)    /*Si el usuario no existe en la BD -> Se añade*/
                 {
                     $password = trim($_POST['Password']);
                     $nomApe = trim($_POST['NomApe']);
 
-                    if (!preg_match("#^[a-zA-Z]+$#", $nomApe)) { /*Si no tiene solo texto */
-                        ?>
+                    /*if (!ctype_alpha('$nomApe')) { /*Si no tiene solo texto */
+                     /*   ?>
                         <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
                         <?php
                      } else {
@@ -144,11 +143,11 @@
                                 return false;
                             }
                             if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
-                            {
+                     /*       {
                                 $letter = substr($dni, -1);
                                 $numbers = substr($dni, 0, -1);
                                 if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
-                                {
+                      /*          {
                                         return true;
                                 }
                                 return false;
@@ -162,7 +161,7 @@
                             <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
                             <?php
                         }
-                        else{
+                        else{*/
                             $telefono = trim($_POST['Telefono']);
 
                             $tlf_length = strlen((string)$telefono);
@@ -178,7 +177,7 @@
                                 <h3 class ="ErrorRegistro">¡El teléfono tiene que tener 9 dígitos!</h3>
                                 <?php
                             }
-                            else{
+                        /*    else{
                                 $fechaNacimiento = date("Y-m-d");
                                 function validateDate($date, $format = 'Y-m-d')
                                     {
@@ -187,26 +186,22 @@
                                         return $d && $d->format($format) === $date;
                                     }
                                 if(!validateDate($fechaNacimiento)) /* Creo que funciona :)*/
-                                {
+                        /*        {
                                     ?>
                                     <h3 class ="ErrorRegistro">¡La fecha de nacimiento introducida no es válida!</h3>
                                     <?php
                                 }
-                                else{
+                                else{*/
                                     $email = trim($_POST['Email']);
         
-                                    $consulta = "INSERT INTO Usuario VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
+                                    $consulta = "INSERT INTO USUARIO VALUES ('$Username', '$Password', '$NomApe', '$DNI', $Telefono, '$FechaNacimiento', '$Email')";
                                     $resultado = mysqli_query($conexion, $consulta);
-
-                                    ?>
-                                    <h3 class ="ErrorRegistro"> '$username' </h3>
-                                    <?php
         
                                     if($resultado){
                                         ?>
                                         <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
                                         <?php
-                                        $_SESSION['user_id'] = $username;
+                                        $_SESSION['user_id'] = $Username;
                                         header("location: ./principal.php");
                                     }
                                     else{
@@ -214,10 +209,10 @@
                                         <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
                                         <?php
                                     }
-                                }
-                            }
-                        }
-                     }
+                                /*}*/
+                            /*}*/
+                        /*}*/
+                     /*}*/
                 }
                 else{
                     ?>
