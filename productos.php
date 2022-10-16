@@ -93,7 +93,7 @@
 
             <?php
             $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
-            if(isset($_POST['Anadir'])) /*Si se ha pulsado el botón con nombre Register */
+            if(isset($_POST['Anadir'])) /*Si se ha pulsado el botón con nombre Añadir */
             {
                 if(strlen($_POST['NombreProducto']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
                 strlen($_POST['Descripcion']) >= 1 &&
@@ -105,7 +105,6 @@
                     $descripcion = trim($_POST['Descripcion']);
                     $valor = trim($_POST['Valor']);
 
-                            $valor_length = strlen((string)$valor);
                             if(!is_numeric($valor))
                             {
                                 ?>
@@ -116,7 +115,6 @@
                             {
                                 $antiguedad = trim($_POST['Antiguedad']);
 
-                                $antiguedad_length = strlen((string)$antiguedad);
                                 if(!is_numeric($antiguedad))
                                 {
                                     ?>
@@ -155,20 +153,179 @@
 
         </section>
 
-        <section class="knowledge">
-            <div class="knowledge__container container">
-                <div class="knowledge__text">
-                    <h2 class="subtitle">Nombre</h2>
-                    <p class="knowledge__paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi eos ea excepturi quas quidem ut exercitationem perferendis temporibus! Optio vel nihil quo esse adipisci modi! Iure quisquam minus veniam aspernatur?</p>
-                    <a href="#" class="cta">Editar</a>
-                    <a href="#" class="cta">Eliminar</a>
-                </div>
 
-                <figure class="knowledge__picture">
-                    <img src="./images/Portatil.png" class="knowledge__img">
-                </figure>
+        <section class="container about">
+            <h2 class="subtitle">Artículos de Empéñame Esta</h2>
+            <p class="about__paragraph">Debajo se encuentran todos los artículos que tenemos registrados en Empéñame Esta.</p>
+
+            <div class="about__main">
+
+            <table>
+                <tr>
+                    <td>Id</td>
+                    <td>Nombre</td>
+                    <td>Descripción</td>
+                    <td>Valor</td>
+                    <td>Antiguedad</td>
+                    <td>Marca/Autor</td>
+                </tr>
+                <?php
+
+                $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+                $consulta = "SELECT * FROM Producto";
+                $resultado = mysqli_query($conexion, $consulta);
+
+                while($mostrar = mysqli_fetch_array($resultado))
+                {
+                    ?>
+
+                        <tr>
+                            <td><?php echo $mostrar['Id']?></td>
+                            <td><?php echo $mostrar['Nombre']?></td>
+                            <td><?php echo $mostrar['Descripcion']?></td>
+                            <td><?php echo $mostrar['Valor']?></td>
+                            <td><?php echo $mostrar['Antiguedad']?></td>
+                            <td><?php echo $mostrar['MarcaAutor']?></td>
+                        </tr>
+
+                    <?php
+                }
+
+                ?>
+            </table>
             </div>
         </section>
+
+        
+        <section class="knowledge">
+            <form action="./productos.php" method="post">
+                <div class="knowledge__container container">
+                    <div class="knowledge__text">
+                        <h2 class="subtitle">Editar artículo</h2>
+                        <div class="footer__input">
+                            <input type="Id" name="Id2" placeholder="Id del producto:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="nomP" name="NombreProducto2" placeholder="Nuevo nombre:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="descP" name="Descripcion2" placeholder="Nueva descripción:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="valor" name="Valor2" placeholder="Nuevo valor:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="antiguedad" name="Antiguedad2" placeholder="Nueva antiguedad años:" class="footer__input">
+                        </div>
+                        &nbsp;
+                        <div class="footer__input">
+                            <input type="contra" name="MarcaAutor2"placeholder="Nueva Marca/Autor:" class="footer__input">
+                        </div>
+                        <h6>-</h6>
+                        <input type="submit" name="Editar" value="Editar artículo">
+                    </div>
+    
+                    <figure class="knowledge__picture">
+                        <img src="./images/CasaEmpenos.jpg" class="knowledge__img">
+                    </figure>
+                </div>
+            </form>
+
+            <?php
+            $conexion = mysqli_connect("localhost","root","","empenameesta"); /*Adaptarlo a Docker*/
+            if(isset($_POST['Editar'])) /*Si se ha pulsado el botón con nombre Editar */
+            {
+                if(strlen($_POST['Id2']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
+                strlen($_POST['NombreProducto2']) >= 1 &&
+                strlen($_POST['Descripcion2']) >= 1 &&
+                strlen((string)$_POST['Valor2']) >= 1 &&    /*Cast a string*/
+                strlen((string)$_POST['Antiguedad2']) >= 1 &&
+                strlen($_POST['MarcaAutor2']) >= 1)
+                {
+                    $id = trim($_POST['Id2']);
+                    if(!is_numeric($id))
+                    {
+                        ?>
+                        <h3 class ="ErrorRegistro">¡El Id solo puede contener números!</h3>
+                        <?php
+                    }
+                    else
+                    {
+                        $consultaId = "SELECT * FROM Producto WHERE Id='$id'";
+                        $resultadoId = mysqli_query($conexion, $consultaId);
+                        $totalFilasRdoId    =    mysqli_num_rows($resultadoId);
+                        if($totalFilasRdoId == 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡El Id introducido no está registrado en nuestro sistema!</h3>
+                            <?php
+                        }
+                        else if(!$resultadoId)
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                            <?php
+                        }
+                        else    /* El ID está en la BD */
+                        {
+                            $nombreProducto = trim($_POST['NombreProducto2']);
+                            $descripcion = trim($_POST['Descripcion2']);
+                            $valor = trim($_POST['Valor2']);
+
+                                    if(!is_numeric($valor))
+                                    {
+                                        ?>
+                                        <h3 class ="ErrorRegistro">¡El valor solo puede contener números!</h3>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        $antiguedad = trim($_POST['Antiguedad2']);
+                                    
+                                        if(!is_numeric($antiguedad))
+                                        {
+                                            ?>
+                                            <h3 class ="ErrorRegistro">¡La antiguedad solo puede contener números!</h3>
+                                            <?php
+                                        }
+                                        else
+                                        {
+                                            $marcaAutor = trim($_POST['MarcaAutor2']);
+                                        
+                                            /* Consulta */
+                                            $consulta = "UPDATE Producto SET Nombre='$nombreProducto', Descripcion='$descripcion', Valor='$valor', Antiguedad='$antiguedad', MarcaAutor='$marcaAutor' WHERE Id='$id'";
+                                            $resultado = mysqli_query($conexion, $consulta);
+                                        
+                                            if($resultado){
+                                                ?>
+                                                <h3 class ="OkRegistro">¡Se ha editado el producto correctamente! Recargue la página para que se muestran los nuevos datos.</h3>
+                                                <?php
+                                            }
+                                            else{
+                                                ?>
+                                                <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                                <?php
+                                            }
+                                        }
+                                    } 
+                        }
+                    }
+                }
+                else
+                {
+                    ?>
+                    <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
+                    <?php
+                }
+            }
+            ?>
+
+        </section>
+
     </main>
 
     <footer class="footer">
