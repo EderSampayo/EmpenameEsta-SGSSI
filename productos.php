@@ -267,7 +267,7 @@
                     }
                     else
                     {
-                        $consultaId = "SELECT * FROM PRODUCTO WHERE Id='$id'";
+                        $consultaId = "SELECT * FROM PRODUCTO WHERE Id= $id";
                         $resultadoId = mysqli_query($conexion, $consultaId);
                         if($resultadoId->num_rows <= 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
                         {
@@ -343,10 +343,10 @@
                     <div class="knowledge__text">
                         <h2 class="subtitle">Eliminar artículo</h2>
                         <div class="footer__input">
-                            <input type="Id" name="Id2" placeholder="Id del producto:" class="footer__input">
+                            <input type="Id" name="Id3" placeholder="Id del producto:" class="footer__input">
                         </div>
                         <h6>-</h6>
-                        <input type="submit" name="Editar" value="Eliminar artículo">
+                        <input type="submit" name="Eliminar" value="Eliminar artículo">
                     </div>
                 </div>
             </form>
@@ -357,11 +357,12 @@
             die("Database connection failed: " . $conn->connect_error);
         }
         
-        if(isset($_POST['Eliminar artículo'])) /*Si se ha pulsado el botón con nombre InicSesion */
+        if(isset($_POST['Eliminar'])) /*Si se ha pulsado el botón con nombre InicSesion */
         {
-            $consultaId = "SELECT * FROM PRODUCTO WHERE Id='$id'";
+            $id = trim($_POST['Id3']);
+            $consultaId = "SELECT * FROM PRODUCTO WHERE Id = $id";
             $resultadoId = mysqli_query($conexion, $consultaId);
-            if($resultadoId->num_rows <= 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
+            if($resultadoId->num_rows == 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
             {
                 ?>
                 <h3 class ="ErrorRegistro">¡El Id introducido no está registrado en nuestro sistema!</h3>
@@ -375,7 +376,7 @@
             }
             else    /* El ID está en la BD */
             {
-                $consulta = "DELETE FROM PRODUCTO WHERE Id='$id'";
+                $consulta = "DELETE FROM PRODUCTO WHERE Id= $id";
                 $resultado = mysqli_query($conexion, $consulta);
             
                 if($resultado){
