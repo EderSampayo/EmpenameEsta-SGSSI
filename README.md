@@ -5,5 +5,6 @@ Instrucciones:
      $sudo groupadd docker
      $sudo usermod -aG docker $USER
      reiniciar la máquina
-Buscar dentro de la carpeta EmpenameEsta-SGSSI el archivo init.sh y ejecutarlo mediante el comando: $sudo ./init.sh
-Abrir Firefox y escribir en la barra de búsqueda la siguiente dirección: localhost:81
+   # A continuación:
+     Buscar dentro de la carpeta EmpenameEsta-SGSSI el archivo init.sh y ejecutarlo mediante el comando: $sudo ./init.sh
+     Abrir Firefox y escribir en la barra de búsqueda la siguiente dirección: localhost:81
