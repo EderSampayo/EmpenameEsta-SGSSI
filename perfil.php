@@ -115,7 +115,7 @@
         {
             if(strlen($_POST['NomYApe']) >= 1)   /*Si longitud >= 1, es decir, si no está vacío*/
             {
-                $nomApe = trim($_POST['NomApe']);
+                $nomApe = trim($_POST['NomYApe']);
                 /*if (!preg_match("#^[a-zA-Z]+$#", $nomApe)) { /*Si no tiene solo texto */
                 /*    ?>
                     <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
