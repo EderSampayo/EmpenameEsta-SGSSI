@@ -26,9 +26,6 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `producto`
 --
-CREATE DATABASE EMPENAMEESTA;
-
-USE EMPENAMEESTA;
 
 DROP TABLE IF EXISTS PRODUCTO;
 
@@ -38,7 +35,7 @@ CREATE TABLE PRODUCTO (
   `Valor` decimal(10,2) NOT NULL,
   `Antiguedad` int(6) NOT NULL,
   `MarcaAutor` varchar(20) NOT NULL,
-  `Id` int(11) NOT NULL AUTO_INCREMENT
+  `Id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
