@@ -62,7 +62,10 @@
                         </div>
                         &nbsp;
                         <div class="footer__input">
-                            <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input">
+                            <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input" id="inputPassword">
+                            <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
+                            <input type="checkbox" onclick="ocultarPassword()">Ver Contraseña
+                            <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
                         </div>
                         <h6>-</h6>
                         <div class="registrarse">
@@ -107,6 +110,11 @@
                         <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
                         <?php
                         $_SESSION['user_id'] = $username;
+
+                        //ENTREGA 2 (SESIÓN EXPIRADA)
+                        $_SESSION['CREATED'] = time(); // registra en tiempo con el que se va a comparar si han pasado x minutos de inactividad
+                        //ENTREGA 2 (SESIÓN EXPIRADA)
+
                         echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
                         
                     }
@@ -166,5 +174,6 @@
 
     <script src="js/slider.js"></script>
     <script src="./js/preguntas.js"></script>
+    <script src="./js/ocultarPassword.js"></script>
 </body>
 </html>

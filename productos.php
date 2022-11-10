@@ -1,5 +1,10 @@
 <?php
     session_start();
+    if (isset($_SESSION['CREATED']) && (time() - $_SESSION['CREATED'] > 1800)) { //1800s = 30min
+        // last request was more than 30 minutes ago
+        session_unset();     // unset $_SESSION variable for the run-time 
+        session_destroy();   // destroy session data in storage
+    }
     if (!isset($_SESSION['user_id'])) {
         echo '<script type="text/javascript">window.location.replace("http://localhost:81/iniciosesion.php");</script>';
     }
