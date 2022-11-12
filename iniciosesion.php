@@ -1,5 +1,17 @@
 <?php
     session_start();
+
+    //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+    if(isset($_SESSION["locked"]))
+    {
+        $difference = time() - $_SESSION["locked"];
+        if($difference > 10)
+        {
+            unset($_SESSION["locked"]);
+            unset($_SESSION["login_attempts"]);
+        }
+    }
+    //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +84,23 @@
                             ¿No estás registrado? <a href="registro.php">Regístrate</a>
                         </div>
                         <h6>-</h6>
-                        <input type="submit" name="InicSesion" value="Iniciar sesión">
+                        <?php
+                        //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+                            if($_SESSION["login_attempts"] > 2)
+                            {
+                                $_SESSION["locked"] = time();
+                                ?>
+                                <h3 style="color: red;" class ="ErrorRegistro">Demasiados intentos fallidos. Por favor, espera 10 segundos</h3>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                    <input type="submit" name="InicSesion" value="Iniciar sesión">
+                                <?php
+                            }
+                        //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+                        ?>
                     </div>
 
                     <figure class="knowledge__picture">
@@ -120,21 +148,30 @@
                     }
                     else
                     {
+                        //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+                        $_SESSION["login_attempts"] += 1;
+                        //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
                         ?>
-                        <h3 class ="ErrorRegistro">¡La contraseña introducida no es correcta!</h3>
+                        <h3 style="color: red;" class ="ErrorRegistro">¡La contraseña introducida no es correcta!</h3>
                         <?php
                     }
                 }
                 else
                 {
+                    //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+                    $_SESSION["login_attempts"] += 1;
+                    //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
                     ?>
-                    <h3 class ="ErrorRegistro">¡El usuario introducido no está registrado en nuestro sistema!</h3>
+                    <h3 style="color: red;" class ="ErrorRegistro">¡El usuario introducido no está registrado en nuestro sistema!</h3>
                     <?php
                 }
             }
             else{
+                //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+                $_SESSION["login_attempts"] += 1;
+                //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
                 ?>
-                <h3 class ="ErrorRegistro">¡Completa los campos!</h3>
+                <h3 style="color: red;" class ="ErrorRegistro">¡Completa los campos!</h3>
                 <?php
             }
         }
