@@ -62,7 +62,7 @@
                         </div>
                         &nbsp;
                         <div class="footer__input">
-                            <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input" id="inputPassword">
+                            <input type="password" name="Password" placeholder="Contraseña:" class="footer__input" id="inputPassword">
                             <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
                             <input type="checkbox" onclick="ocultarPassword()">Ver Contraseña
                             <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
