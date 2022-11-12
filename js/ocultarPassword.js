@@ -1,8 +1,8 @@
 function ocultarPassword() {
     var x = document.getElementById("inputPassword");
-    if (x.type === "contra") {
+    if (x.type === "password") {
       x.type = "text";
     } else {
-      x.type = "contra";
+      x.type = "password";
     }
   }
