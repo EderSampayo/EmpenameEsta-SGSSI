@@ -127,7 +127,8 @@
                         $nomApe = trim($_POST['NomApe']);
                         $dni = trim($_POST['DNI']);
                         $fechaNacimiento = trim($_POST['FechaNacimiento']);
-                        
+
+                        //ENTREGA 2 (CONTRASEÑA INSEGURA)
                         if(strlen((string)$password)< 5) 
                         {
                             ?>
@@ -149,7 +150,7 @@
                         else if(!preg_match("/[a-z]/", $password))
                         {
                             ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un número!</h3>
+                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos una minúscula!</h3>
                             <?php
                         }
                         else if(!preg_match("/\W/", $password))
@@ -164,6 +165,13 @@
                             <h3 class ="ErrorRegistro">¡La contraseña no puede contener espacios en blanco!</h3>
                             <?php
                         }
+                        else if(strcasecmp($password, "admin123") || strcasecmp($password, "admin1234") || strcasecmp($password, "test123") || strcasecmp($password, "test1234"))
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La contraseña es muy simple!</h3>
+                            <?php
+                        }
+                        //ENTREGA 2 (CONTRASEÑA INSEGURA)
                         else /* Si contraseña segura */
                         {
 

@@ -29,6 +29,7 @@
 <body>
     
     <header class="hero">
+    <form action="./principal.php" method="post">
         <nav class="nav container">
             <div class="nav__logo">
                 <h2 class="nav__title">Empéñame esta</h2>
@@ -44,6 +45,9 @@
                 <li class="nav__items">
                     <a href="perfil.php" class="nav__links">Perfil</a>
                 </li>
+                <li class="nav__items">
+                    <input type="submit" name="Logout" value="Logout">
+                </li>
 
                 <img src="images/cerrar.svg" class="nav__close" alt=""> 
             </ul>
@@ -57,6 +61,19 @@
             <h1 class="hero__title">Productos</h1>
             <p class="hero__paragraph"></p>
         </section>
+        </form>
+        <?php
+        //ENTREGA 2 (BOTÓN LOGOUT)
+        if(isset($_POST['Logout']))
+        {
+            session_unset();
+            session_destroy();
+
+            echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+        }
+        //ENTREGA 2 (BOTÓN LOGOUT)
+        ?>
+
     </header>
 
     <main>
