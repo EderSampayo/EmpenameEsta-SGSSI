@@ -62,7 +62,7 @@
                         </div>
                         &nbsp;
                         <div class="footer__input">
-                            <input type="contra" name="Password" placeholder="Contraseña:" class="footer__input" id="inputPassword">
+                            <input type="password" name="Password" placeholder="Contraseña:" class="footer__input" id="inputPassword">
                             <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
                             <input type="checkbox" onclick="ocultarPassword()">Ver Contraseña
                             <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
@@ -127,6 +127,45 @@
                         $nomApe = trim($_POST['NomApe']);
                         $dni = trim($_POST['DNI']);
                         $fechaNacimiento = trim($_POST['FechaNacimiento']);
+                        
+                        if(strlen((string)$password)< 5) 
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La contraseña debe tener al menos 5 caracteres!</h3>
+                            <?php
+                        }
+                        else if(!preg_match("/\d/", $password))
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un número!</h3>
+                            <?php
+                        }
+                        else if(!preg_match("/[A-Z]/", $password))
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos una mayúscula!</h3>
+                            <?php
+                        }
+                        else if(!preg_match("/[a-z]/", $password))
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un número!</h3>
+                            <?php
+                        }
+                        else if(!preg_match("/\W/", $password))
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un caracter especial!</h3>
+                            <?php
+                        }
+                        else if(preg_match("/\s/", $password))
+                        {
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La contraseña no puede contener espacios en blanco!</h3>
+                            <?php
+                        }
+                        else /* Si contraseña segura */
+                        {
 
                         /*if (!ctype_alpha('$nomApe')) { /*Si no tiene solo texto */
                         /*   ?>
@@ -218,6 +257,9 @@
                                 }
                             }
                         /*}*/
+
+                        }
+
                     }
                     else{
                         ?>
