@@ -46,7 +46,7 @@ CREATE TABLE PRODUCTO (
 DROP TABLE IF EXISTS USUARIO;
 CREATE TABLE USUARIO (
   `Username` varchar(30) NOT NULL,
-  `Password` varchar(30) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `NombreYApellidos` varchar(30) NOT NULL,
   `DNI` varchar(9) NOT NULL,
   `Telefono` int(9) NOT NULL,
