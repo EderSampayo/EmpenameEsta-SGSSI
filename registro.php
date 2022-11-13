@@ -165,15 +165,18 @@
                             <h3 class ="ErrorRegistro">¡La contraseña no puede contener espacios en blanco!</h3>
                             <?php
                         }
-                        else if(strcasecmp($password, "admin123") || strcasecmp($password, "admin1234") || strcasecmp($password, "test123") || strcasecmp($password, "test1234"))
+                        /*else if(strcasecmp($password, "admin123") || strcasecmp($password, "admin1234") || strcasecmp($password, "test123") || strcasecmp($password, "test1234"))
                         {
                             ?>
                             <h3 class ="ErrorRegistro">¡La contraseña es muy simple!</h3>
                             <?php
-                        }
+                        } */
                         //ENTREGA 2 (CONTRASEÑA INSEGURA)
                         else /* Si contraseña segura */
                         {
+
+                            //ENTREGA 2 (CONTRASEÑA HASHEADA)
+                            $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
 
                         /*if (!ctype_alpha('$nomApe')) { /*Si no tiene solo texto */
                         /*   ?>
@@ -241,7 +244,7 @@
                                     else{
                                         $email = trim($_POST['Email']);
             
-                                        $consulta = "INSERT INTO USUARIO VALUES ('$username', '$password', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
+                                        $consulta = "INSERT INTO USUARIO VALUES ('$username', '$password_hasheada', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
                                         $resultado = mysqli_query($conexion, $consulta);
             
                                         if($resultado){
