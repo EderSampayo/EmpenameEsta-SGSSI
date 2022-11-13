@@ -142,6 +142,18 @@
                         //ENTREGA 2 (SESIÓN EXPIRADA)
                         $_SESSION['CREATED'] = time(); // registra en tiempo con el que se va a comparar si han pasado x minutos de inactividad
                         //ENTREGA 2 (SESIÓN EXPIRADA)
+                        
+
+                        //ENTREGA 2 (LOG DE ACCESOS)
+                        //Something to write to txt log
+                        $log  = "User: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+                        "Attempt: ".($result[0]['success']=='1'?'Success':'Success').PHP_EOL.
+                        "User: ".$username.PHP_EOL.
+                        "-------------------------".PHP_EOL;
+                        //Save string to log, use FILE_APPEND to append.
+                        file_put_contents('./Logs/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
+                        //ENTREGA 2 (LOG DE ACCESOS)
+
 
                         echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
                         
@@ -151,6 +163,17 @@
                         //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
                         $_SESSION["login_attempts"] += 1;
                         //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+
+                        //ENTREGA 2 (LOG DE ACCESOS)
+                        //Something to write to txt log
+                        $log  = "User: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+                        "Attempt: ".($result[0]['success']=='1'?'Success':'Failed').PHP_EOL.
+                        "User: ".$username.PHP_EOL.
+                        "-------------------------".PHP_EOL;
+                        //Save string to log, use FILE_APPEND to append.
+                        file_put_contents('./Logs/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
+                        //ENTREGA 2 (LOG DE ACCESOS)
+                        
                         ?>
                         <h3 style="color: red;" class ="ErrorRegistro">¡La contraseña introducida no es correcta!</h3>
                         <?php
