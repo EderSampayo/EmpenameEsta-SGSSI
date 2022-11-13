@@ -129,10 +129,12 @@
                 if($resultado1->num_rows > 0)    /*Si el usuario existe en la BD -> Se continúa*/
                 {
                     $password = trim($_POST['Password']);
-                    $consulta2 = "SELECT * FROM USUARIO WHERE Password='$password'";
+                    $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'"; //Se obtiene la contraseña hasheada
                     $resultado2 = mysqli_query($conexion, $consulta2);
-                    $totalFilasRdo2    =    mysqli_num_rows($resultado2);
-                    if($totalFilasRdo2 != 0)    /*Si el usuario ha introducido la contraseña correcta -> Se loguea*/
+                    $row = mysqli_fetch_assoc($resultado2);
+                    $contraBD=$row['Password'];
+
+                    if(password_verify($password, $contraBD))    /*Si el usuario ha introducido la contraseña correcta -> Se loguea*/
                     {
                         ?>
                         <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
