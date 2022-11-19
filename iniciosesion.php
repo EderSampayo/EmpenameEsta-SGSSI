@@ -122,72 +122,78 @@
             strlen($_POST['Password']) >= 1)
             {
                 $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
-
-                $consulta1 = "SELECT * FROM USUARIO WHERE Username='$username'";
-                $resultado1 = mysqli_query($conexion, $consulta1);
-            
-                if($resultado1->num_rows > 0)    /*Si el usuario existe en la BD -> Se continúa*/
-                {
-                    $password = trim($_POST['Password']);
-                    $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'"; //Se obtiene la contraseña hasheada
-                    $resultado2 = mysqli_query($conexion, $consulta2);
-                    $row = mysqli_fetch_assoc($resultado2);
-                    $contraBD=$row['Password'];
-
-                    if(password_verify($password, $contraBD))    /*Si el usuario ha introducido la contraseña correcta -> Se loguea*/
+                if(ctype_alpha($username)){
+                    $consulta1 = "SELECT * FROM USUARIO WHERE Username='$username'";
+                    $resultado1 = mysqli_query($conexion, $consulta1);
+                
+                    if($resultado1->num_rows > 0)    /*Si el usuario existe en la BD -> Se continúa*/
                     {
-                        ?>
-                        <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
-                        <?php
-                        $_SESSION['user_id'] = $username;
-
-                        //ENTREGA 2 (SESIÓN EXPIRADA)
-                        $_SESSION['CREATED'] = time(); // registra en tiempo con el que se va a comparar si han pasado x minutos de inactividad
-                        //ENTREGA 2 (SESIÓN EXPIRADA)
-                        
-
-                        //ENTREGA 2 (LOG DE ACCESOS)
-                        //Something to write to txt log
-                        $log  = "User: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
-                        "Attempt: ".($result[0]['success']=='1'?'Success':'Success').PHP_EOL.
-                        "User: ".$username.PHP_EOL.
-                        "-------------------------".PHP_EOL;
-                        //Save string to log, use FILE_APPEND to append.
-                        file_put_contents('./Logs/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
-                        //ENTREGA 2 (LOG DE ACCESOS)
-
-
-                        echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
-                        
+                        $password = trim($_POST['Password']);
+                        $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'"; //Se obtiene la contraseña hasheada
+                        $resultado2 = mysqli_query($conexion, $consulta2);
+                        $row = mysqli_fetch_assoc($resultado2);
+                        $contraBD=$row['Password'];
+    
+                        if(password_verify($password, $contraBD))    /*Si el usuario ha introducido la contraseña correcta -> Se loguea*/
+                        {
+                            ?>
+                            <h3 class ="OkRegistro">¡Te has logueado correctamente!</h3>
+                            <?php
+                            $_SESSION['user_id'] = $username;
+    
+                            //ENTREGA 2 (SESIÓN EXPIRADA)
+                            $_SESSION['CREATED'] = time(); // registra en tiempo con el que se va a comparar si han pasado x minutos de inactividad
+                            //ENTREGA 2 (SESIÓN EXPIRADA)
+                            
+    
+                            //ENTREGA 2 (LOG DE ACCESOS)
+                            //Something to write to txt log
+                            $log  = "User: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+                            "Attempt: ".($result[0]['success']=='1'?'Success':'Success').PHP_EOL.
+                            "User: ".$username.PHP_EOL.
+                            "-------------------------".PHP_EOL;
+                            //Save string to log, use FILE_APPEND to append.
+                            file_put_contents('./Logs/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
+                            //ENTREGA 2 (LOG DE ACCESOS)
+    
+    
+                            echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+                            
+                        }
+                        else
+                        {
+                            //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+                            $_SESSION["login_attempts"] += 1;
+                            //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+    
+                            //ENTREGA 2 (LOG DE ACCESOS)
+                            //Something to write to txt log
+                            $log  = "User: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+                            "Attempt: ".($result[0]['success']=='1'?'Success':'Failed').PHP_EOL.
+                            "User: ".$username.PHP_EOL.
+                            "-------------------------".PHP_EOL;
+                            //Save string to log, use FILE_APPEND to append.
+                            file_put_contents('./Logs/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
+                            //ENTREGA 2 (LOG DE ACCESOS)
+                            
+                            ?>
+                            <h3 style="color: red;" class ="ErrorRegistro">¡La contraseña introducida no es correcta!</h3>
+                            <?php
+                        }
                     }
                     else
                     {
                         //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
                         $_SESSION["login_attempts"] += 1;
                         //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
-
-                        //ENTREGA 2 (LOG DE ACCESOS)
-                        //Something to write to txt log
-                        $log  = "User: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
-                        "Attempt: ".($result[0]['success']=='1'?'Success':'Failed').PHP_EOL.
-                        "User: ".$username.PHP_EOL.
-                        "-------------------------".PHP_EOL;
-                        //Save string to log, use FILE_APPEND to append.
-                        file_put_contents('./Logs/log_'.date("j.n.Y").'.log', $log, FILE_APPEND);
-                        //ENTREGA 2 (LOG DE ACCESOS)
-                        
                         ?>
-                        <h3 style="color: red;" class ="ErrorRegistro">¡La contraseña introducida no es correcta!</h3>
+                        <h3 style="color: red;" class ="ErrorRegistro">¡El usuario introducido no está registrado en nuestro sistema!</h3>
                         <?php
                     }
                 }
-                else
-                {
-                    //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
-                    $_SESSION["login_attempts"] += 1;
-                    //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
+                else{
                     ?>
-                    <h3 style="color: red;" class ="ErrorRegistro">¡El usuario introducido no está registrado en nuestro sistema!</h3>
+                    <h3 style="color: red;" class ="ErrorRegistro">¡El usuario solo puede tener una palabra formada por letras no acentuadas!</h3>
                     <?php
                 }
             }

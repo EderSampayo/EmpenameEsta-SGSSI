@@ -138,33 +138,43 @@
             if(strlen($_POST['NomYApe']) >= 1)   /*Si longitud >= 1, es decir, si no está vacío*/
             {
                 $nomApe = trim($_POST['NomYApe']);
-                /*if (!preg_match("#^[a-zA-Z]+$#", $nomApe)) { /*Si no tiene solo texto */
-                /*    ?>
-                    <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
-                    <?php
-                 } 
-                 else 
-                 {*/
+                function areOnlyLetters( $mixed, $sCharsPermitidos = '' ) : bool
+                {
+                    $pattern = "/^[a-zA-Zá-źÁ-Ź" . $sCharsPermitidos . "]+$/";
+                    return ( preg_match ( $pattern, $mixed ) );
+                }
+                if(areOnlyLetters($nomApe," ")){
                     $conexion = mysqli_connect('db','admin','admin1','empenameesta'); 
                     if ($conexion->connect_error)
                     {
                         die("Database connection failed: " . $conn->connect_error);
                     }
-
-                    $consulta = "UPDATE USUARIO SET NombreYApellidos = '$nomApe' WHERE Username = '$usuario'";
-                    $resultado = mysqli_query($conexion, $consulta);
-        
-                    if($resultado){
-                        ?>
-                        <h3 class ="OkRegistro">¡Nombre y apellidos cambiados correctamente!</h3>
-                        <?php
+                    if(ctype_alpha($usuario)){
+                        $consulta = "UPDATE USUARIO SET NombreYApellidos = '$nomApe' WHERE Username = '$usuario'";
+                        $resultado = mysqli_query($conexion, $consulta);
+            
+                        if($resultado){
+                            ?>
+                            <h3 class ="OkRegistro">¡Nombre y apellidos cambiados correctamente!</h3>
+                            <?php
+                        }
+                        else{
+                            ?>
+                            <h3 class ="ErrorRegistro">¡No se han podido cambiar el nombre y apellidos!</h3>
+                            <?php
+                        }
                     }
                     else{
                         ?>
-                        <h3 class ="ErrorRegistro">¡No se han podido cambiar el nombre y apellidos!</h3>
+                        <h3 class ="ErrorRegistro">¡El usuario no es válido!</h3>
                         <?php
                     }
-                /*}*/
+                }
+                else{
+                    ?>
+                    <h3 class ="ErrorRegistro">¡Nombre y apellidos solo permite letras!</h3>
+                    <?php
+                }
             }
             else{
                 ?>
@@ -212,18 +222,24 @@
                     {
                         die("Database connection failed: " . $conn->connect_error);
                     }
-                    
-                    $consulta = "UPDATE USUARIO SET DNI = '$dni' WHERE Username = '$usuario'";
-                    $resultado = mysqli_query($conexion, $consulta);
-        
-                    if($resultado){
-                        ?>
-                        <h3 class ="OkRegistro">¡DNI cambiado correctamente!</h3>
-                        <?php
+                    if (ctype_alpha($usuario)){
+                        $consulta = "UPDATE USUARIO SET DNI = '$dni' WHERE Username = '$usuario'";
+                        $resultado = mysqli_query($conexion, $consulta);
+            
+                        if($resultado){
+                            ?>
+                            <h3 class ="OkRegistro">¡DNI cambiado correctamente!</h3>
+                            <?php
+                        }
+                        else{
+                            ?>
+                            <h3 class ="ErrorRegistro">¡No se ha podido cambiar el DNI!</h3>
+                            <?php
+                        }
                     }
                     else{
                         ?>
-                        <h3 class ="ErrorRegistro">¡No se ha podido cambiar el DNI!</h3>
+                        <h3 class ="ErrorRegistro">¡El usuario no es válido!</h3>
                         <?php
                     }
                  }
@@ -266,18 +282,24 @@
                         die("Database connection failed: " . $conn->connect_error);
                     }
 
-                    
-                    $consulta = "UPDATE USUARIO SET Telefono = $telefono WHERE Username = '$usuario'";
-                    $resultado = mysqli_query($conexion, $consulta);
-        
-                    if($resultado){
-                        ?>
-                        <h3 class ="OkRegistro">¡Teléfono cambiado correctamente!</h3>
-                        <?php
+                    if (ctype_alpha($usuario)){
+                        $consulta = "UPDATE USUARIO SET Telefono = $telefono WHERE Username = '$usuario'";
+                        $resultado = mysqli_query($conexion, $consulta);
+            
+                        if($resultado){
+                            ?>
+                            <h3 class ="OkRegistro">¡Teléfono cambiado correctamente!</h3>
+                            <?php
+                        }
+                        else{
+                            ?>
+                            <h3 class ="ErrorRegistro">¡No se ha podido cambiar el Teléfono!</h3>
+                            <?php
+                        }
                     }
                     else{
                         ?>
-                        <h3 class ="ErrorRegistro">¡No se ha podido cambiar el Teléfono!</h3>
+                        <h3 class ="ErrorRegistro">¡El usuario no es válido!</h3>
                         <?php
                     }
                 }
@@ -318,18 +340,24 @@
                         die("Database connection failed: " . $conn->connect_error);
                     }
 
-                    
-                    $consulta = "UPDATE USUARIO SET FechaNac = '$fechaNacimiento' WHERE Username = '$usuario'";
-                    $resultado = mysqli_query($conexion, $consulta);
-        
-                    if($resultado){
-                        ?>
-                        <h3 class ="OkRegistro">¡Fecha de nacimiento cambiada correctamente!</h3>
-                        <?php
+                    if(ctype_alpha($usuario)){
+                        $consulta = "UPDATE USUARIO SET FechaNac = '$fechaNacimiento' WHERE Username = '$usuario'";
+                        $resultado = mysqli_query($conexion, $consulta);
+            
+                        if($resultado){
+                            ?>
+                            <h3 class ="OkRegistro">¡Fecha de nacimiento cambiada correctamente!</h3>
+                            <?php
+                        }
+                        else{
+                            ?>
+                            <h3 class ="ErrorRegistro">¡No se ha podido cambiar la fecha de nacimiento!</h3>
+                            <?php
+                        }
                     }
                     else{
                         ?>
-                        <h3 class ="ErrorRegistro">¡No se ha podido cambiar la fecha de nacimiento!</h3>
+                        <h3 class ="ErrorRegistro">¡El usuario no es válido!</h3>
                         <?php
                     }
                 }
@@ -355,18 +383,24 @@
                 {
                     die("Database connection failed: " . $conn->connect_error);
                 }
-                    
-                $consulta = "UPDATE USUARIO SET Email = '$email' WHERE Username = '$usuario'";
-                $resultado = mysqli_query($conexion, $consulta);
-    
-                if($resultado){
-                    ?>
-                    <h3 class ="OkRegistro">¡Email cambiado correctamente!</h3>
-                    <?php
+                if(ctype_alpha($usuario)){
+                    $consulta = "UPDATE USUARIO SET Email = '$email' WHERE Username = '$usuario'";
+                    $resultado = mysqli_query($conexion, $consulta);
+        
+                    if($resultado){
+                        ?>
+                        <h3 class ="OkRegistro">¡Email cambiado correctamente!</h3>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡No se ha podido cambiar el email!</h3>
+                        <?php
+                    }
                 }
                 else{
                     ?>
-                    <h3 class ="ErrorRegistro">¡No se ha podido cambiar el email!</h3>
+                    <h3 class ="ErrorRegistro">¡El usuario no es válido!</h3>
                     <?php
                 }
             }
@@ -401,22 +435,29 @@
                     }
                     
                     $usuario = $_SESSION['user_id'];
-                    $consulta = "SELECT * FROM USUARIO WHERE Username = '$usuario'";
-                    $resultado = mysqli_query($conexion, $consulta);
+                    if(ctype_alpha($usuario)){
+                        $consulta = "SELECT * FROM USUARIO WHERE Username = '$usuario'";
+                        $resultado = mysqli_query($conexion, $consulta);
 
-                    while($mostrar = mysqli_fetch_array($resultado))
-                    {
+                        while($mostrar = mysqli_fetch_array($resultado))
+                        {
+                            ?>
+
+                                <tr>
+                                    <td><?php echo $mostrar['Username']?></td>
+                                    <td><?php echo $mostrar['NombreYApellidos']?></td>
+                                    <td><?php echo $mostrar['DNI']?></td>
+                                    <td><?php echo $mostrar['Telefono']?></td>
+                                    <td><?php echo $mostrar['FechaNac']?></td>
+                                    <td><?php echo $mostrar['Email']?></td>
+                                </tr>
+
+                            <?php
+                    }
+                    }
+                    else{
                         ?>
-
-                            <tr>
-                                <td><?php echo $mostrar['Username']?></td>
-                                <td><?php echo $mostrar['NombreYApellidos']?></td>
-                                <td><?php echo $mostrar['DNI']?></td>
-                                <td><?php echo $mostrar['Telefono']?></td>
-                                <td><?php echo $mostrar['FechaNac']?></td>
-                                <td><?php echo $mostrar['Email']?></td>
-                            </tr>
-
+                        <h3 class ="ErrorRegistro">¡El usuario no es válido!</h3>
                         <?php
                     }
 

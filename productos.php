@@ -129,7 +129,13 @@
                     $nombreProducto = trim($_POST['NombreProducto']);
                     $descripcion = trim($_POST['Descripcion']);
                     $valor = trim($_POST['Valor']);
-
+                    function areOnlyLetters( $mixed, $sCharsPermitidos = '' ) : bool
+                    {
+                        $pattern = "/^[a-zA-Zá-źÁ-Ź" . $sCharsPermitidos . "]+$/";
+                        return ( preg_match ( $pattern, $mixed ) );
+                    }
+                    if(areOnlyLetters($nombreProducto," ")){
+                        if(areOnlyLetters($descripcion," ")){
                             if(!is_numeric($valor))
                             {
                                 ?>
@@ -149,22 +155,40 @@
                                 else
                                 {
                                     $marcaAutor = trim($_POST['MarcaAutor']);
-
-                                    /* Consulta */
-                                    $consulta = "INSERT INTO PRODUCTO(Nombre, Descripcion, Valor, Antiguedad, MarcaAutor) VALUES ('$nombreProducto', '$descripcion', $valor, $antiguedad, '$marcaAutor')";
-                                    
-                                    if(mysqli_query($conexion, $consulta)){
-                                        ?>
-                                        <h3 class ="OkRegistro">¡Se ha registrado el producto correctamente!</h3>
-                                        <?php
+                                    if(areOnlyLetters($descripcion," ")){
+                                        /* Consulta */
+                                        $consulta = "INSERT INTO PRODUCTO(Nombre, Descripcion, Valor, Antiguedad, MarcaAutor) VALUES ('$nombreProducto', '$descripcion', $valor, $antiguedad, '$marcaAutor')";
+                                        
+                                        if(mysqli_query($conexion, $consulta)){
+                                            ?>
+                                            <h3 class ="OkRegistro">¡Se ha registrado el producto correctamente!</h3>
+                                            <?php
+                                        }
+                                        else{
+                                            ?>
+                                            <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                            <?php
+                                        }
                                     }
                                     else{
                                         ?>
-                                        <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                        <h3 class ="ErrorRegistro">¡La marca del autor solo acepta letras!</h3>
                                         <?php
                                     }
                                 }
                             }
+                        }
+                        else{
+                            ?>
+                            <h3 class ="ErrorRegistro">¡La descripción solo acepta letras!</h3>
+                            <?php
+                        }
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡El nombre del producto solo acepta letras!</h3>
+                        <?php
+                    }
                 }
                 else
                 {
@@ -307,7 +331,14 @@
                         {
                             $nombreProducto = trim($_POST['NombreProducto2']);
                             $descripcion = trim($_POST['Descripcion2']);
-                            $valor = trim($_POST['Valor2']);
+                            function areOnlyLetters( $mixed, $sCharsPermitidos = '' ) : bool
+                            {
+                                $pattern = "/^[a-zA-Zá-źÁ-Ź" . $sCharsPermitidos . "]+$/";
+                                return ( preg_match ( $pattern, $mixed ) );
+                            }
+                            if(areOnlyLetters($nombreProducto," ")){
+                                if(areOnlyLetters($descripcion," ")){
+                                    $valor = trim($_POST['Valor2']);
 
                                     if(!is_numeric($valor))
                                     {
@@ -328,23 +359,42 @@
                                         else
                                         {
                                             $marcaAutor = trim($_POST['MarcaAutor2']);
+                                            if(areOnlyLetters($marcaAutor," ")){
                                         
-                                            /* Consulta */
-                                            $consulta = "UPDATE PRODUCTO SET Nombre='$nombreProducto', Descripcion='$descripcion', Valor='$valor', Antiguedad='$antiguedad', MarcaAutor='$marcaAutor' WHERE Id='$id'";
-                                            $resultado = mysqli_query($conexion, $consulta);
-                                        
-                                            if($resultado){
-                                                ?>
-                                                <h3 class ="OkRegistro">¡Se ha editado el producto correctamente! Recargue la página para que se muestran los nuevos datos.</h3>
-                                                <?php
+                                                /* Consulta */
+                                                $consulta = "UPDATE PRODUCTO SET Nombre='$nombreProducto', Descripcion='$descripcion', Valor='$valor', Antiguedad='$antiguedad', MarcaAutor='$marcaAutor' WHERE Id='$id'";
+                                                $resultado = mysqli_query($conexion, $consulta);
+                                            
+                                                if($resultado){
+                                                    ?>
+                                                    <h3 class ="OkRegistro">¡Se ha editado el producto correctamente! Recargue la página para que se muestran los nuevos datos.</h3>
+                                                    <?php
+                                                }
+                                                else{
+                                                    ?>
+                                                    <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                                    <?php
+                                                }
                                             }
                                             else{
                                                 ?>
-                                                <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                                <h3 class ="ErrorRegistro">¡La marca del autor solo acepta letras!</h3>
                                                 <?php
                                             }
                                         }
-                                    } 
+                                    }
+                                } 
+                                else{
+                                    ?>
+                                    <h3 class ="ErrorRegistro">¡La descripción solo acepta letras!</h3>
+                                    <?php
+                                }
+                            }
+                            else{
+                                ?>
+                                <h3 class ="ErrorRegistro">¡El nombre del producto solo acepta letras!</h3>
+                                <?php
+                            }
                         }
                     }
                 }
@@ -382,35 +432,42 @@
         if(isset($_POST['Eliminar'])) /*Si se ha pulsado el botón con nombre InicSesion */
         {
             $id = trim($_POST['Id3']);
-            $consultaId = "SELECT * FROM PRODUCTO WHERE Id = $id";
-            $resultadoId = mysqli_query($conexion, $consultaId);
-            if($resultadoId->num_rows == 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
-            {
-                ?>
-                <h3 class ="ErrorRegistro">¡El Id introducido no está registrado en nuestro sistema!</h3>
-                <?php
-            }
-            else if(!$resultadoId)
-            {
-                ?>
-                <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
-                <?php
-            }
-            else    /* El ID está en la BD */
-            {
-                $consulta = "DELETE FROM PRODUCTO WHERE Id= $id";
-                $resultado = mysqli_query($conexion, $consulta);
-            
-                if($resultado){
+            if(is_numeric($id)){
+                $consultaId = "SELECT * FROM PRODUCTO WHERE Id = $id";
+                $resultadoId = mysqli_query($conexion, $consultaId);
+                if($resultadoId->num_rows == 0)   /* Si el Id no existe en nuestra BD -> No se puede editar!*/
+                {
                     ?>
-                    <h3 class ="OkRegistro">¡Se ha eliminado el producto correctamente! Recargue la página para que se muestran los nuevos datos.</h3>
+                    <h3 class ="ErrorRegistro">¡El Id introducido no está registrado en nuestro sistema!</h3>
                     <?php
                 }
-                else{
+                else if(!$resultadoId)
+                {
                     ?>
                     <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
                     <?php
                 }
+                else    /* El ID está en la BD */
+                {
+                    $consulta = "DELETE FROM PRODUCTO WHERE Id= $id";
+                    $resultado = mysqli_query($conexion, $consulta);
+                
+                    if($resultado){
+                        ?>
+                        <h3 class ="OkRegistro">¡Se ha eliminado el producto correctamente! Recargue la página para que se muestran los nuevos datos.</h3>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                        <?php
+                    }
+                }
+            }
+            else{
+                ?>
+                <h3 class ="ErrorRegistro">¡El Id solo puede contener numeros!</h3>
+                <?php
             }
         }
         ?>

@@ -117,166 +117,178 @@
                 strlen($_POST['Email']) >= 1)
                 {
                     $username = trim($_POST['Username']); /*Trim quita el espacio del principio y del final*/
-
-                    $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'";
-                    $resultado2 = mysqli_query($conexion, $consulta2);
-
-                    if($resultado2->num_rows == 0)    /*Si el usuario no existe en la BD -> Se añade*/
-                    {
-                        $password = trim($_POST['Password']);
-                        $nomApe = trim($_POST['NomApe']);
-                        $dni = trim($_POST['DNI']);
-                        $fechaNacimiento = trim($_POST['FechaNacimiento']);
-
-                        //ENTREGA 2 (CONTRASEÑA INSEGURA)
-                        if(strlen((string)$password)< 5) 
+                    if(ctype_alpha($username)){
+                        $consulta2 = "SELECT * FROM USUARIO WHERE Username='$username'";
+                        $resultado2 = mysqli_query($conexion, $consulta2);
+    
+                        if($resultado2->num_rows == 0)    /*Si el usuario no existe en la BD -> Se añade*/
                         {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña debe tener al menos 5 caracteres!</h3>
-                            <?php
-                        }
-                        else if(!preg_match("/\d/", $password))
-                        {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un número!</h3>
-                            <?php
-                        }
-                        else if(!preg_match("/[A-Z]/", $password))
-                        {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos una mayúscula!</h3>
-                            <?php
-                        }
-                        else if(!preg_match("/[a-z]/", $password))
-                        {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos una minúscula!</h3>
-                            <?php
-                        }
-                        else if(!preg_match("/\W/", $password))
-                        {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un caracter especial!</h3>
-                            <?php
-                        }
-                        else if(preg_match("/\s/", $password))
-                        {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña no puede contener espacios en blanco!</h3>
-                            <?php
-                        }
-                        /*else if(strcasecmp($password, "admin123") || strcasecmp($password, "admin1234") || strcasecmp($password, "test123") || strcasecmp($password, "test1234"))
-                        {
-                            ?>
-                            <h3 class ="ErrorRegistro">¡La contraseña es muy simple!</h3>
-                            <?php
-                        } */
-                        //ENTREGA 2 (CONTRASEÑA INSEGURA)
-                        else /* Si contraseña segura */
-                        {
-
-                            //ENTREGA 2 (CONTRASEÑA HASHEADA)
-                            $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
-
-                        /*if (!ctype_alpha('$nomApe')) { /*Si no tiene solo texto */
-                        /*   ?>
-                            <h3 class ="ErrorRegistro">¡"Nombre y Apellidos" solo aceptan texto!</h3>
-                            <?php
-                        } else {*/
+                            $password = trim($_POST['Password']);
+                            $nomApe = trim($_POST['NomApe']);
                             $dni = trim($_POST['DNI']);
-                            
-                            function es_dni_valido($dni){
-                                $dni_length = strlen((string)$dni);
-                                if($dni_length != 9)
-                                {
-                                    return false;
-                                }
-                                if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
-                               {
-                                    $letter = substr($dni, -1);
-                                    $numbers = substr($dni, 0, -1);
-                                    if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
-                                  {
-                                            return true;
-                                    }
-                                    return false;
-                                }
-                            }
-                            
-                            
-                            if(!es_dni_valido($dni))
+                            $fechaNacimiento = trim($_POST['FechaNacimiento']);
+    
+                            //ENTREGA 2 (CONTRASEÑA INSEGURA)
+                            if(strlen((string)$password)< 5) 
                             {
                                 ?>
-                                <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
+                                <h3 class ="ErrorRegistro">¡La contraseña debe tener al menos 5 caracteres!</h3>
                                 <?php
                             }
-                            else{
-                                $telefono = trim($_POST['Telefono']);
-
-                                $tlf_length = strlen((string)$telefono);
-                                if(!is_numeric($telefono))
+                            else if(!preg_match("/\d/", $password))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un número!</h3>
+                                <?php
+                            }
+                            else if(!preg_match("/[A-Z]/", $password))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos una mayúscula!</h3>
+                                <?php
+                            }
+                            else if(!preg_match("/[a-z]/", $password))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos una minúscula!</h3>
+                                <?php
+                            }
+                            else if(!preg_match("/\W/", $password))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡La contraseña debe contener al menos un caracter especial!</h3>
+                                <?php
+                            }
+                            else if(preg_match("/\s/", $password))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡La contraseña no puede contener espacios en blanco!</h3>
+                                <?php
+                            }
+                            /*else if(strcasecmp($password, "admin123") || strcasecmp($password, "admin1234") || strcasecmp($password, "test123") || strcasecmp($password, "test1234"))
+                            {
+                                ?>
+                                <h3 class ="ErrorRegistro">¡La contraseña es muy simple!</h3>
+                                <?php
+                            } */
+                            //ENTREGA 2 (CONTRASEÑA INSEGURA)
+                            else /* Si contraseña segura */
+                            {
+    
+                                //ENTREGA 2 (CONTRASEÑA HASHEADA)
+                                $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
+    
+                                function areOnlyLetters( $mixed, $sCharsPermitidos = '' ) : bool
                                 {
-                                    ?>
-                                    <h3 class ="ErrorRegistro">¡El teléfono solo puede contener números!</h3>
-                                    <?php
+                                    $pattern = "/^[a-zA-Zá-źÁ-Ź" . $sCharsPermitidos . "]+$/";
+                                    return ( preg_match ( $pattern, $mixed ) );
                                 }
-                                else if($tlf_length != 9)
-                                {
-                                    ?>
-                                    <h3 class ="ErrorRegistro">¡El teléfono tiene que tener 9 dígitos!</h3>
-                                    <?php
-                                }
-                                else
-                                {
-                                    $fechaNacimiento = date("Y-m-d");
-                                    function validateDate($date, $format = 'Y-m-d')
+                                if(areOnlyLetters($nomApe," ")){
+                                    $dni = trim($_POST['DNI']);
+                                
+                                    function es_dni_valido($dni){
+                                        $dni_length = strlen((string)$dni);
+                                        if($dni_length != 9)
                                         {
-                                            $d = DateTime::createFromFormat($format, $date);
-                                            // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
-                                            return $d && $d->format($format) === $date;
+                                            return false;
                                         }
-                                    if(!validateDate($fechaNacimiento)) /* Creo que funciona :)*/
-                                   {
+                                        if (preg_match("#^[0-9]{8}[A-Z]{1}+$#", $dni))     /* Si tiene el formato correcto */
+                                       {
+                                            $letter = substr($dni, -1);
+                                            $numbers = substr($dni, 0, -1);
+                                            if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 )    /* Si la letra corresponde con los números*/
+                                          {
+                                                    return true;
+                                            }
+                                            return false;
+                                        }
+                                    }
+                                    
+                                    
+                                    if(!es_dni_valido($dni))
+                                    {
                                         ?>
-                                        <h3 class ="ErrorRegistro">¡La fecha de nacimiento introducida no es válida!</h3>
+                                        <h3 class ="ErrorRegistro">¡El DNI no es válido!</h3>
                                         <?php
                                     }
                                     else{
-                                        $email = trim($_POST['Email']);
-            
-                                        $consulta = "INSERT INTO USUARIO VALUES ('$username', '$password_hasheada', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
-                                        $resultado = mysqli_query($conexion, $consulta);
-            
-                                        if($resultado){
+                                        $telefono = trim($_POST['Telefono']);
+        
+                                        $tlf_length = strlen((string)$telefono);
+                                        if(!is_numeric($telefono))
+                                        {
                                             ?>
-                                            <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
+                                            <h3 class ="ErrorRegistro">¡El teléfono solo puede contener números!</h3>
                                             <?php
-                                            $_SESSION['user_id'] = $Username;
-
-                                            //ENTREGA 2 (SESIÓN EXPIRADA)
-                                            $_SESSION['CREATED'] = time(); // registra en tiempo con el que se va a comparar si han pasado x minutos de inactividad
-                                            //ENTREGA 2 (SESIÓN EXPIRADA)
-
-                                            echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
                                         }
-                                        else{
+                                        else if($tlf_length != 9)
+                                        {
                                             ?>
-                                            <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                            <h3 class ="ErrorRegistro">¡El teléfono tiene que tener 9 dígitos!</h3>
                                             <?php
+                                        }
+                                        else
+                                        {
+                                            $fechaNacimiento = date("Y-m-d");
+                                            function validateDate($date, $format = 'Y-m-d')
+                                                {
+                                                    $d = DateTime::createFromFormat($format, $date);
+                                                    // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+                                                    return $d && $d->format($format) === $date;
+                                                }
+                                            if(!validateDate($fechaNacimiento)) /* Creo que funciona :)*/
+                                           {
+                                                ?>
+                                                <h3 class ="ErrorRegistro">¡La fecha de nacimiento introducida no es válida!</h3>
+                                                <?php
+                                            }
+                                            else{
+                                                $email = trim($_POST['Email']);
+                    
+                                                $consulta = "INSERT INTO USUARIO VALUES ('$username', '$password_hasheada', '$nomApe', '$dni', $telefono, '$fechaNacimiento', '$email')";
+                                                $resultado = mysqli_query($conexion, $consulta);
+                    
+                                                if($resultado){
+                                                    ?>
+                                                    <h3 class ="OkRegistro">¡Te has registrado correctamente!</h3>
+                                                    <?php
+                                                    $_SESSION['user_id'] = $username;
+        
+                                                    //ENTREGA 2 (SESIÓN EXPIRADA)
+                                                    $_SESSION['CREATED'] = time(); // registra en tiempo con el que se va a comparar si han pasado x minutos de inactividad
+                                                    //ENTREGA 2 (SESIÓN EXPIRADA)
+        
+                                                    echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+                                                }
+                                                else{
+                                                    ?>
+                                                    <h3 class ="ErrorRegistro">¡Ha ocurrido un error!</h3>
+                                                    <?php
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                                else{
+                                    ?>
+                                    <h3 class ="ErrorRegistro">¡Nombre y apellidos solo pueden contener letras!</h3>
+                                    <?php
+                                }    
                             }
-                        /*}*/
-
+    
                         }
-
+                        else{
+                            ?>
+                            <h3 class ="ErrorRegistro">¡El nombre de usuario ya está registrado en nuestro sistema!</h3>
+                            <?php
+                        }
                     }
                     else{
                         ?>
-                        <h3 class ="ErrorRegistro">¡El nombre de usuario ya está registrado en nuestro sistema!</h3>
+                        <h3 class ="ErrorRegistro">¡El nombre de usuario solo puede tener una palabra formada por letras!</h3>
                         <?php
                     }
+
                 }
                 else{
                     ?>
