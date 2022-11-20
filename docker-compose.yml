@@ -7,10 +7,15 @@ services:
       - ALLOW_OVERRIDE=true
     ports:
       - "81:80"
+      - "444:443"
     links:
       - db
     volumes:
       - ./:/var/www/html/
+      - ./empenameesta.conf:/etc/apache2/sites-enabled/empenameesta.conf
+      - ./llave.key:/etc/apache2/ssl/llave.key
+      - ./certificado.crt:/etc/apache2/ssl/certificado.crt
+      - ./servidor.csr:/etc/apache2/ssl/servidor.csr
 
   db:
     image: mariadb:10.8.2
@@ -28,7 +33,7 @@ services:
       - "8889:3306"
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin/phpmyadmin:5.2.0
     links:
       - db
     ports:

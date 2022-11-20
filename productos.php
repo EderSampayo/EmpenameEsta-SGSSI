@@ -6,7 +6,7 @@
         session_destroy();   // destroy session data in storage
     }
     if (!isset($_SESSION['user_id'])) {
-        echo '<script type="text/javascript">window.location.replace("http://localhost:81/iniciosesion.php");</script>';
+        echo '<script type="text/javascript">window.location.replace("https://localhost:444/iniciosesion.php");</script>';
     }
 ?>
 
@@ -49,6 +49,14 @@
                     <input type="submit" name="Logout" value="Logout">
                 </li>
 
+                <?php
+
+                ?>
+                <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
+                <?php
+                
+                ?>
+
                 <img src="images/cerrar.svg" class="nav__close" alt=""> 
             </ul>
 
@@ -63,13 +71,19 @@
         </section>
         </form>
         <?php
+        //ENTREGA 2 (TOKEN)
+            $token = md5(uniqid(rand(), true));
+            $_SESSION['tokenProductos'] = $token;
+
+        //ENTREGA 2 (TOKEN)
+
         //ENTREGA 2 (BOTÓN LOGOUT)
         if(isset($_POST['Logout']))
         {
             session_unset();
             session_destroy();
 
-            echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+            echo '<script type="text/javascript">window.location.replace("https://localhost:444/principal.php");</script>';
         }
         //ENTREGA 2 (BOTÓN LOGOUT)
         ?>
@@ -102,6 +116,7 @@
                             <input type="contra" name="MarcaAutor"placeholder="Marca/Autor:" class="footer__input">
                         </div>
                         <h6>-</h6>
+                        <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         <input type="submit" name="Anadir" value="Añadir artículo">
                     </div>
     
@@ -118,7 +133,7 @@
                 die("Database connection failed: " . $conn->connect_error);
             }
 
-            if(isset($_POST['Anadir'])) /*Si se ha pulsado el botón con nombre Añadir */
+            if(isset($_POST['Anadir']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenProductos'] /*Entrega 2 (token)*/) /*Si se ha pulsado el botón con nombre Añadir */
             {
                 if(strlen($_POST['NombreProducto']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
                 strlen($_POST['Descripcion']) >= 1 &&
@@ -279,6 +294,7 @@
                             <input type="contra" name="MarcaAutor2"placeholder="Nueva Marca/Autor:" class="footer__input">
                         </div>
                         <h6>-</h6>
+                        <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         <input type="submit" name="Editar" value="Editar artículo">
                     </div>
     
@@ -295,7 +311,7 @@
                 die("Database connection failed: " . $conn->connect_error);
             }
             
-            if(isset($_POST['Editar'])) /*Si se ha pulsado el botón con nombre Editar */
+            if(isset($_POST['Editar']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenProductos'] /*Entrega 2 (token)*/) /*Si se ha pulsado el botón con nombre Editar */
             {
                 if(strlen($_POST['Id2']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
                 strlen($_POST['NombreProducto2']) >= 1 &&
@@ -416,6 +432,7 @@
                         <h2 class="subtitle">Eliminar artículo</h2>
                         <div class="footer__input">
                             <input type="Id" name="Id3" placeholder="Id del producto:" class="footer__input">
+                            <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         </div>
                         <h6>-</h6>
                         <input type="submit" name="Eliminar" value="Eliminar artículo">
@@ -429,7 +446,7 @@
             die("Database connection failed: " . $conn->connect_error);
         }
         
-        if(isset($_POST['Eliminar'])) /*Si se ha pulsado el botón con nombre InicSesion */
+        if(isset($_POST['Eliminar'])/*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenProductos'] /*Entrega 2 (token)*/) /*Si se ha pulsado el botón con nombre InicSesion */
         {
             $id = trim($_POST['Id3']);
             if(is_numeric($id)){

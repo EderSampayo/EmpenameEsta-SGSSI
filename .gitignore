@@ -7,3 +7,4 @@ mysql/ibdata1
 mysql/ibtmp1
 mysql/multi-master.info
 mysql/mysql_upgrade_info
+mysql/ddl_recovery-backup.log

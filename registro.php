@@ -258,7 +258,7 @@
                                                     $_SESSION['CREATED'] = time(); // registra en tiempo con el que se va a comparar si han pasado x minutos de inactividad
                                                     //ENTREGA 2 (SESIÓN EXPIRADA)
         
-                                                    echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+                                                    echo '<script type="text/javascript">window.location.replace("https://localhost:444/principal.php");</script>';
                                                 }
                                                 else{
                                                     ?>

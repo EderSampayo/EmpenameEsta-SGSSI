@@ -6,8 +6,13 @@
         session_destroy();   // destroy session data in storage
     }
     if (!isset($_SESSION['user_id'])) {
-        echo '<script type="text/javascript">window.location.replace("http://localhost:81/iniciosesion.php");</script>';
+        echo '<script type="text/javascript">window.location.replace("https://localhost:444/iniciosesion.php");</script>';
     }
+
+    //ENTREGA 2 (TOKEN)
+    $token = md5(uniqid(rand(), true));
+    $_SESSION['tokenPerfil'] = $token;
+    //ENTREGA 2 (TOKEN)
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +51,7 @@
                     <a href="perfil.php" class="nav__links">Perfil</a>
                 </li>
                 <li class="nav__items">
+                    <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                     <input type="submit" name="Logout" value="Logout">
                 </li>
 
@@ -69,7 +75,7 @@
             session_unset();
             session_destroy();
 
-            echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+            echo '<script type="text/javascript">window.location.replace("https://localhost:444/principal.php");</script>';
         }
         //ENTREGA 2 (BOTÓN LOGOUT)
         ?>
@@ -89,6 +95,7 @@
                         <h2 class="subtitle">Cambio de datos</h2>
                         <div class="footer__input">
                             <input type="nombreYape" name="NomYApe" placeholder="Nombre y Apellidos:" class="footer__input">
+                            <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         </div>
                         <input type="submit" name="CambiarNomYApe" value="Cambiar">
                         <h6>-</h6>
@@ -96,6 +103,7 @@
 
                         <div class="footer__input">
                             <input type="dni" name="DNI" placeholder="DNI:" class="footer__input">
+                            <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         </div>
                         <input type="submit" name="CambiarDNI" value="Cambiar">
                         <h6>-</h6>
@@ -103,6 +111,7 @@
 
                         <div class="footer__input">
                             <input type="telefono" name="Telefono" placeholder="Teléfono:" class="footer__input">
+                            <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         </div>
                         <input type="submit" name="CambiarTlf" value="Cambiar">
                         <h6>-</h6>
@@ -110,6 +119,7 @@
 
                         <div class="footer__input">
                             <input type="fechaNacimiento" name="FNac" placeholder="Fecha de Nacimiento:" class="footer__input">
+                            <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         </div>
                         <input type="submit" name="CambiarFNac" value="Cambiar">
                         <h6>-</h6>
@@ -117,6 +127,7 @@
 
                         <div class="footer__input">
                             <input type="email" name="Email" placeholder="Email:" class="footer__input">
+                            <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>">
                         </div>
                         <input type="submit" name="CambiarEmail" value="Cambiar">
                         <h6>-</h6>
@@ -133,7 +144,7 @@
         /*==================*/
         /*NOMBRE Y APELLIDOS*/
         /*==================*/
-        if(isset($_POST['CambiarNomYApe'])) /*Si se ha pulsado el botón con nombre InicSesion */
+        if(isset($_POST['CambiarNomYApe']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenPerfil'] /*Entrega 2 (token)*/) /*Si se ha pulsado el botón con nombre InicSesion */
         {
             if(strlen($_POST['NomYApe']) >= 1)   /*Si longitud >= 1, es decir, si no está vacío*/
             {
@@ -205,7 +216,7 @@
             }
           }
 
-        if(isset($_POST['CambiarDNI']))
+        if(isset($_POST['CambiarDNI']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenPerfil'] /*Entrega 2 (token)*/)
         {
             if(strlen($_POST['DNI']) >= 1)
             {
@@ -255,7 +266,7 @@
         /*TELÉFONO*/
         /*==================*/
 
-        if(isset($_POST['CambiarTlf']))
+        if(isset($_POST['CambiarTlf']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenPerfil'] /*Entrega 2 (token)*/)
         {
             if(strlen($_POST['Telefono']) >= 1)
             {
@@ -315,7 +326,7 @@
         /*FECHA DE NACIMIENTO*/
         /*==================*/
 
-        if(isset($_POST['CambiarFNac']))
+        if(isset($_POST['CambiarFNac']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenPerfil'] /*Entrega 2 (token)*/)
         {
             if(strlen($_POST['FNac']) >= 1)
             {
@@ -373,7 +384,7 @@
         /*EMAIL*/
         /*==================*/
 
-        if(isset($_POST['CambiarEmail']))
+        if(isset($_POST['CambiarEmail']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenPerfil'] /*Entrega 2 (token)*/)
         {
             if(strlen($_POST['Email']) >= 1)
             {

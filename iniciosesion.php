@@ -78,6 +78,7 @@
                             <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
                             <input type="checkbox" onclick="ocultarPassword()">Ver Contraseña
                             <?php //ENTREGA 2 (OCULTAR PASSWORD) ?>
+                            <input type="hidden" name="CSRF_token" value="<?php echo $token; ?>"> <?php /*ENTREGA 2 TOKEN */ ?>
                         </div>
                         <h6>-</h6>
                         <div class="registrarse">
@@ -85,6 +86,11 @@
                         </div>
                         <h6>-</h6>
                         <?php
+                        //ENTREGA 2 (TOKEN)
+                            $token = md5(uniqid(rand(),true));
+                            $_SESSION['tokenLogin'] = $token;
+                        //ENTREGA 2 (TOKEN)
+
                         //ENTREGA 2 (LIMITAR INTENTOS LOGIN)
                             if($_SESSION["login_attempts"] > 2)
                             {
@@ -116,7 +122,7 @@
             die("Database connection failed: " . $conn->connect_error);
         }
         
-        if(isset($_POST['InicSesion'])) /*Si se ha pulsado el botón con nombre InicSesion */
+        if(isset($_POST['InicSesion']) /*Entrega 2 (token)*/ or $_POST['CSRF_token'] == $_SESSION['tokenLogin'] /*Entrega 2 (token)*/) /*Si se ha pulsado el botón con nombre InicSesion */
         {
             if(strlen($_POST['Username']) >= 1 &&    /*Si longitud >= 1, es decir, si no está vacío*/
             strlen($_POST['Password']) >= 1)
@@ -157,7 +163,7 @@
                             //ENTREGA 2 (LOG DE ACCESOS)
     
     
-                            echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+                            echo '<script type="text/javascript">window.location.replace("https://localhost:444/principal.php");</script>';
                             
                         }
                         else

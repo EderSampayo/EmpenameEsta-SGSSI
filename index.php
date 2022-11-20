@@ -6,9 +6,9 @@
         session_destroy();   // destroy session data in storage
     }
     if (!isset($_SESSION['user_id'])) {
-        echo '<script type="text/javascript">window.location.replace("http://localhost:81/iniciosesion.php");</script>';
+        echo '<script type="text/javascript">window.location.replace("https://localhost:444/iniciosesion.php");</script>';
     } else {
-        echo '<script type="text/javascript">window.location.replace("http://localhost:81/principal.php");</script>';
+        echo '<script type="text/javascript">window.location.replace("https://localhost:444/principal.php");</script>';
     }
 ?>
 
