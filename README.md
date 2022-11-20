@@ -17,6 +17,6 @@ Instrucciones:
    # A continuación:
      Buscar dentro de la carpeta EmpenameEsta-SGSSI el archivo init.sh y ejecutarlo mediante el comando: $sudo ./init.sh
      Aparecerán una serie de peticiones necesarias para utilizar https, se puede darle enter hasta que no se pidan mas imputs.
-     Abrir firefox y escribir en la barra de busqueda la siguiente dirección: localhost:8890.
-     Iniciar sesión utilizando el usuario "admin" y la contraseña "admin1" y importar el archivo empenameesta.sql
+     Abrir firefox y escribir en la barra de busqueda la siguiente dirección: localhost:8890
+     Iniciar sesión utilizando el usuario "admin" y la contraseña "admin1" e importar el archivo empenameesta.sql
      Para finalizar abrir Firefox y escribir en la barra de búsqueda la siguiente dirección: localhost:81
