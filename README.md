@@ -10,6 +10,9 @@ Instrucciones:
         $sudo apt install mysql-server
         $sudo apt install mysql-client
         $sudo apt install docker-compose
+        
+   # Si no funciona phpmyadmin al iniciar el servidor:
+        $sudo aa-remove-unknown
 
    # A continuación:
      Buscar dentro de la carpeta EmpenameEsta-SGSSI el archivo init.sh y ejecutarlo mediante el comando: $sudo ./init.sh
